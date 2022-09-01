@@ -35,7 +35,9 @@ namespace // unnamed, anonymous namespace
     ///           else       return false;
     ///         do this instead:
     ///           return a < b;
-    return true;
+    double difference { std::abs(lhs - rhs) }
+    return difference <= EPSILON ? true : (difference <= (std::max(lhs, rhs) * EPSILON));
+
     /////////////////////// END-TO-DO (1) ////////////////////////////
   }
 } // unnamed, anonymous namespace
@@ -46,24 +48,27 @@ namespace // unnamed, anonymous namespace
 
 // Default and Conversion Constructor
 GroceryItem::GroceryItem(std::string productName, std::string brandName, std::string upcCode, double price)
-///////////////////////// TO-DO (2) //////////////////////////////
-/// Copying the parameters into the object's attributes (member variables) "works" but is not correct.  Be sure to move the parameters into the object's attributes
+    ///////////////////////// TO-DO (2) //////////////////////////////
+    /// Copying the parameters into the object's attributes (member variables) "works" but is not correct.  Be sure to move the parameters into the object's attributes
+    : _productName{std::move(productName)}, _brandName{std::move(brandName)}, _upcCode{std::move(upcCode)}, _price{std::move(price)}
 {
-  std::cout << "hello world c++" << std::endl;
 }
 /////////////////////// END-TO-DO (2) ////////////////////////////
 
 // Copy constructor
 GroceryItem::GroceryItem(GroceryItem const &other)
-///////////////////////// TO-DO (3) //////////////////////////////
+    ///////////////////////// TO-DO (3) //////////////////////////////
+    : _productName{other._productName}, _brandName{other._brandName}, _upcCode{other._upcCode}, _price{other._price}
 {
 }
 /////////////////////// END-TO-DO (3) ////////////////////////////
 
 // Move constructor
 GroceryItem::GroceryItem(GroceryItem &&other) noexcept
-///////////////////////// TO-DO (4) //////////////////////////////
+    ///////////////////////// TO-DO (4) //////////////////////////////
+    : _productName{std::move(other._productName)}, _brandName{std::move(other._brandName)}, _upcCode{std::move(other._upcCode)}, _price{std::move(other._price)}
 {
+  delete std::addressof(other);
 }
 /////////////////////// END-TO-DO (4) ////////////////////////////
 
@@ -78,6 +83,12 @@ GroceryItem &GroceryItem::operator=(GroceryItem const &rhs) &
 GroceryItem &GroceryItem::operator=(GroceryItem &&rhs) &noexcept
 ///////////////////////// TO-DO (6) //////////////////////////////
 {
+  _productName = std::move(rhs._productName);
+  _brandName = std::move(rhs._brandName);
+  _upcCode = std::move(rhs._upcCode);
+  _price = std::move(rhs._price);
+  delete std::addressof(rhs);
+  return *this;
 }
 /////////////////////// END-TO-DO (6) ////////////////////////////
 
