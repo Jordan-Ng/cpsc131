@@ -24,4 +24,6 @@ int main()
         std::cout << **i << "\n";
         delete *i;
     }
+
+    return 0;
 }
