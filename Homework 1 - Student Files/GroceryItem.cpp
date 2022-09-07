@@ -64,7 +64,7 @@ GroceryItem::GroceryItem(std::string productName, std::string brandName, std::st
 // Copy constructor
 GroceryItem::GroceryItem(GroceryItem const &other)
 ///////////////////////// TO-DO (3) //////////////////////////////
-: _productName{other._productName}, _brandName{other._brandName}, _upcCode{other._upcCode}, _price{other._price}
+: _upcCode{other._upcCode}, _brandName{other._brandName}, _productName{other._productName}, _price{other._price}
 {
 }
 /////////////////////// END-TO-DO (3) ////////////////////////////
@@ -72,7 +72,7 @@ GroceryItem::GroceryItem(GroceryItem const &other)
 // Move constructor
 GroceryItem::GroceryItem(GroceryItem &&other) noexcept
 ///////////////////////// TO-DO (4) //////////////////////////////
-: _productName{std::move(other._productName)}, _brandName{std::move(other._brandName)}, _upcCode{std::move(other._upcCode)}, _price{std::move(other._price)}
+: _upcCode{std::move(other._upcCode)}, _brandName{std::move(other._brandName)}, _productName{std::move(other._productName)}, _price{std::move(other._price)}
 {
 }
 /////////////////////// END-TO-DO (4) ////////////////////////////
