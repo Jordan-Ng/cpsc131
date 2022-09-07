@@ -50,11 +50,13 @@ namespace // unnamed, anonymous namespace
 GroceryItem::GroceryItem(std::string productName, std::string brandName, std::string upcCode, double price)
 ///////////////////////// TO-DO (2) //////////////////////////////
 /// Copying the parameters into the object's attributes (member variables) "works" but is not correct.  Be sure to move the parameters into the object's attributes
-    : _productName{std::move(productName)}, _brandName{std::move(brandName)}, _upcCode{std::move(upcCode)}, _price{std::move(price)}
+    : _upcCode{std::move(upcCode)}, _brandName{std::move(brandName)}, _productName{std::move(productName)}, _price{std::move(price)}
 {
-  if (_brandName.compare("incomplete / invalid grocery item") == 0)
+  if (_brandName == "incomplete / invalid grocery item")
   {
-    _productName = _brandName = _upcCode = "";
+    _productName = "";
+    _brandName = "";
+    _upcCode = "";
   }
 }
 /////////////////////// END-TO-DO (2) ////////////////////////////
