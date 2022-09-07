@@ -66,6 +66,12 @@ GroceryItem::GroceryItem(GroceryItem const &other)
 ///////////////////////// TO-DO (3) //////////////////////////////
 : _upcCode{other._upcCode}, _brandName{other._brandName}, _productName{other._productName}, _price{other._price}
 {
+  if (_brandName == "incomplete / invalid grocery item")
+  {
+    _productName = "";
+    _brandName = "";
+    _upcCode = "";
+  }
 }
 /////////////////////// END-TO-DO (3) ////////////////////////////
 
@@ -74,6 +80,12 @@ GroceryItem::GroceryItem(GroceryItem &&other) noexcept
 ///////////////////////// TO-DO (4) //////////////////////////////
 : _upcCode{std::move(other._upcCode)}, _brandName{std::move(other._brandName)}, _productName{std::move(other._productName)}, _price{std::move(other._price)}
 {
+  if (_brandName == "incomplete / invalid grocery item")
+  {
+    _productName = "";
+    _brandName = "";
+    _upcCode = "";
+  }
 }
 /////////////////////// END-TO-DO (4) ////////////////////////////
 
