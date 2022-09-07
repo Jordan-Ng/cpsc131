@@ -48,25 +48,29 @@ namespace // unnamed, anonymous namespace
 
 // Default and Conversion Constructor
 GroceryItem::GroceryItem(std::string productName, std::string brandName, std::string upcCode, double price)
-    ///////////////////////// TO-DO (2) //////////////////////////////
-    /// Copying the parameters into the object's attributes (member variables) "works" but is not correct.  Be sure to move the parameters into the object's attributes
+///////////////////////// TO-DO (2) //////////////////////////////
+/// Copying the parameters into the object's attributes (member variables) "works" but is not correct.  Be sure to move the parameters into the object's attributes
     : _productName{std::move(productName)}, _brandName{std::move(brandName)}, _upcCode{std::move(upcCode)}, _price{std::move(price)}
 {
+  if (_brandName.compare("incomplete / invalid grocery item") == 0)
+  {
+    _productName = _brandName = _upcCode = "";
+  }
 }
 /////////////////////// END-TO-DO (2) ////////////////////////////
 
 // Copy constructor
 GroceryItem::GroceryItem(GroceryItem const &other)
-    ///////////////////////// TO-DO (3) //////////////////////////////
-    : _productName{other._productName}, _brandName{other._brandName}, _upcCode{other._upcCode}, _price{other._price}
+///////////////////////// TO-DO (3) //////////////////////////////
+: _productName{other._productName}, _brandName{other._brandName}, _upcCode{other._upcCode}, _price{other._price}
 {
 }
 /////////////////////// END-TO-DO (3) ////////////////////////////
 
 // Move constructor
 GroceryItem::GroceryItem(GroceryItem &&other) noexcept
-    ///////////////////////// TO-DO (4) //////////////////////////////
-    : _productName{std::move(other._productName)}, _brandName{std::move(other._brandName)}, _upcCode{std::move(other._upcCode)}, _price{std::move(other._price)}
+///////////////////////// TO-DO (4) //////////////////////////////
+: _productName{std::move(other._productName)}, _brandName{std::move(other._brandName)}, _upcCode{std::move(other._upcCode)}, _price{std::move(other._price)}
 {
 }
 /////////////////////// END-TO-DO (4) ////////////////////////////
@@ -306,7 +310,8 @@ std::ostream &operator<<(std::ostream &stream, const GroceryItem &groceryItem)
   /// Hint:  Brand and product names may have quotes, which need to escaped when printing.  Use std::quoted to read and write quoted strings.  See
   ///        1) https://en.cppreference.com/w/cpp/io/manip/quoted
   ///        2) https://www.youtube.com/watch?v=Mu-GUZuU31A
-  stream << std::quoted(groceryItem._upcCode) << std::quoted(groceryItem._brandName) << std::quoted(groceryItem._productName) << groceryItem._price << std::endl;
+  char comma = ',';
+  stream << std::quoted(groceryItem._upcCode) << comma << std::quoted(groceryItem._brandName) << comma << std::quoted(groceryItem._productName) << comma << groceryItem._price << std::endl;
   return stream;
   /////////////////////// END-TO-DO (22) ////////////////////////////
 }
