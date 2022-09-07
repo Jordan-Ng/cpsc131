@@ -48,9 +48,9 @@ namespace // unnamed, anonymous namespace
 
 // Default and Conversion Constructor
 GroceryItem::GroceryItem(std::string productName, std::string brandName, std::string upcCode, double price)
-///////////////////////// TO-DO (2) //////////////////////////////
-/// Copying the parameters into the object's attributes (member variables) "works" but is not correct.  Be sure to move the parameters into the object's attributes
-: _productName{std::move(productName)}, _brandName{std::move(brandName)}, _upcCode{std::move(upcCode)}, _price{std::move(price)}
+    ///////////////////////// TO-DO (2) //////////////////////////////
+    /// Copying the parameters into the object's attributes (member variables) "works" but is not correct.  Be sure to move the parameters into the object's attributes
+    : _productName{std::move(productName)}, _brandName{std::move(brandName)}, _upcCode{std::move(upcCode)}, _price{std::move(price)}
 {
 }
 /////////////////////// END-TO-DO (2) ////////////////////////////
@@ -65,8 +65,8 @@ GroceryItem::GroceryItem(GroceryItem const &other)
 
 // Move constructor
 GroceryItem::GroceryItem(GroceryItem &&other) noexcept
-///////////////////////// TO-DO (4) //////////////////////////////
-: _productName{std::move(other._productName)}, _brandName{std::move(other._brandName)}, _upcCode{std::move(other._upcCode)}, _price{std::move(other._price)}
+    ///////////////////////// TO-DO (4) //////////////////////////////
+    : _productName{std::move(other._productName)}, _brandName{std::move(other._brandName)}, _upcCode{std::move(other._upcCode)}, _price{std::move(other._price)}
 {
 }
 /////////////////////// END-TO-DO (4) ////////////////////////////
@@ -241,7 +241,17 @@ std::weak_ordering GroceryItem::operator<=>(const GroceryItem &rhs) const noexce
   // (sorted) by UPC code, product name, brand name, then price.
 
   ///////////////////////// TO-DO (19) //////////////////////////////
+  if (_upcCode.compare(rhs._upcCode) >= 0 && _productName.compare(rhs._productName) >= 0 && _brandName.compare(rhs._brandName) >= 0 && _price - rhs._price > 0)
+    return std::weak_ordering::greater;
 
+  else if (*this == rhs)
+    return std::weak_ordering::equivalent;
+
+  else if (_upcCode.compare(rhs._upcCode) <= 0 && _productName.compare(rhs._productName) <= 0 && _brandName.compare(rhs._brandName) <= 0 && _price - rhs._price < 0)
+    return std::weak_ordering::less;
+
+  else
+    return std::weak_ordering::equivalent;
   /////////////////////// END-TO-DO (19) ////////////////////////////
 }
 
@@ -253,7 +263,7 @@ bool GroceryItem::operator==(const GroceryItem &rhs) const noexcept
 
   ///////////////////////// TO-DO (20) //////////////////////////////
 
-  return std::abs(_price - rhs._price) < __DBL_EPSILON__ && _brandName == rhs._brandName && _upcCode == rhs._upcCode && _productName == rhs._productName;
+  return std::abs(_price - rhs._price) < __DBL_EPSILON__ && _brandName.compare(rhs._brandName) == 0 && _upcCode.compare(rhs._upcCode) == 0 && _productName.compare(rhs._productName) == 0;
   /////////////////////// END-TO-DO (20) ////////////////////////////
 }
 
