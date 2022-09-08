@@ -262,7 +262,7 @@ bool GroceryItem::operator==(const GroceryItem &rhs) const noexcept
   // quickest and then the most likely to be different first.
 
   ///////////////////////// TO-DO (20) //////////////////////////////
-  return std::abs(_price - rhs._price) < __DBL_EPSILON__ && _brandName.compare(rhs._brandName) == 0 && _upcCode.compare(rhs._upcCode) == 0 && _productName.compare(rhs._productName) == 0;
+  return floating_point_is_equal(_price, rhs._price) && _brandName.compare(rhs._brandName) == 0 && _upcCode.compare(rhs._upcCode) == 0 && _productName.compare(rhs._productName) == 0;
   /////////////////////// END-TO-DO (20) ////////////////////////////
 }
 
