@@ -242,13 +242,10 @@ std::weak_ordering GroceryItem::operator<=>(const GroceryItem &rhs) const noexce
   // (sorted) by UPC code, product name, brand name, then price.
 
   ///////////////////////// TO-DO (19) //////////////////////////////
-  if (_upcCode.compare(rhs._upcCode) >= 0 && _productName.compare(rhs._productName) >= 0 && _brandName.compare(rhs._brandName) >= 0 && _price - rhs._price > 0)
+  if (_upcCode.compare(rhs._upcCode) > 0 || _productName.compare(rhs._productName) > 0 || _brandName.compare(rhs._brandName) > 0 || _price - rhs._price > 0)
     return std::weak_ordering::greater;
 
-  else if (*this == rhs)
-    return std::weak_ordering::equivalent;
-
-  else if (_upcCode.compare(rhs._upcCode) <= 0 && _productName.compare(rhs._productName) <= 0 && _brandName.compare(rhs._brandName) <= 0 && _price - rhs._price < 0)
+  else if (_upcCode.compare(rhs._upcCode) < 0 || _productName.compare(rhs._productName) < 0 || _brandName.compare(rhs._brandName) < 0 || _price - rhs._price < 0)
     return std::weak_ordering::less;
 
   else
