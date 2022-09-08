@@ -48,44 +48,26 @@ namespace // unnamed, anonymous namespace
 
 // Default and Conversion Constructor
 GroceryItem::GroceryItem(std::string productName, std::string brandName, std::string upcCode, double price)
-///////////////////////// TO-DO (2) //////////////////////////////
-/// Copying the parameters into the object's attributes (member variables) "works" but is not correct.  Be sure to move the parameters into the object's attributes
+    ///////////////////////// TO-DO (2) //////////////////////////////
+    /// Copying the parameters into the object's attributes (member variables) "works" but is not correct.  Be sure to move the parameters into the object's attributes
     : _upcCode{std::move(upcCode)}, _brandName{std::move(brandName)}, _productName{std::move(productName)}, _price{std::move(price)}
 {
-  if (_brandName == "incomplete / invalid grocery item")
-  {
-    _productName = "";
-    _brandName = "";
-    _upcCode = "";
-  }
 }
 /////////////////////// END-TO-DO (2) ////////////////////////////
 
 // Copy constructor
 GroceryItem::GroceryItem(GroceryItem const &other)
-///////////////////////// TO-DO (3) //////////////////////////////
-: _upcCode{other._upcCode}, _brandName{other._brandName}, _productName{other._productName}, _price{other._price}
+    ///////////////////////// TO-DO (3) //////////////////////////////
+    : _upcCode{other._upcCode}, _brandName{other._brandName}, _productName{other._productName}, _price{other._price}
 {
-  if (_brandName == "incomplete / invalid grocery item")
-  {
-    _productName = "";
-    _brandName = "";
-    _upcCode = "";
-  }
 }
 /////////////////////// END-TO-DO (3) ////////////////////////////
 
 // Move constructor
 GroceryItem::GroceryItem(GroceryItem &&other) noexcept
-///////////////////////// TO-DO (4) //////////////////////////////
-: _upcCode{std::move(other._upcCode)}, _brandName{std::move(other._brandName)}, _productName{std::move(other._productName)}, _price{std::move(other._price)}
+    ///////////////////////// TO-DO (4) //////////////////////////////
+    : _upcCode{std::move(other._upcCode)}, _brandName{std::move(other._brandName)}, _productName{std::move(other._productName)}, _price{std::move(other._price)}
 {
-  if (_brandName == "incomplete / invalid grocery item")
-  {
-    _productName = "";
-    _brandName = "";
-    _upcCode = "";
-  }
 }
 /////////////////////// END-TO-DO (4) ////////////////////////////
 
@@ -280,7 +262,6 @@ bool GroceryItem::operator==(const GroceryItem &rhs) const noexcept
   // quickest and then the most likely to be different first.
 
   ///////////////////////// TO-DO (20) //////////////////////////////
-
   return std::abs(_price - rhs._price) < __DBL_EPSILON__ && _brandName.compare(rhs._brandName) == 0 && _upcCode.compare(rhs._upcCode) == 0 && _productName.compare(rhs._productName) == 0;
   /////////////////////// END-TO-DO (20) ////////////////////////////
 }
@@ -309,9 +290,72 @@ std::istream &operator>>(std::istream &stream, GroceryItem &groceryItem)
   /// Hint:  Use std::quoted to read and write quoted strings.  See
   ///        1) https://en.cppreference.com/w/cpp/io/manip/quoted
   ///        2) https://www.youtube.com/watch?v=Mu-GUZuU31A
+  // add inputs into temp grocery object
   char comma = ',';
-  stream >> std::quoted(groceryItem._upcCode) >> comma >> std::quoted(groceryItem._brandName) >> comma >> std::quoted(groceryItem._productName) >> comma >> groceryItem._price;
+  GroceryItem tempGroceryItem;
+
+  // validate the state of the string
+
+  //////
+  if (stream >> std::quoted(tempGroceryItem._upcCode) && stream >> comma && stream >> std::quoted(tempGroceryItem._brandName) && stream >> comma && stream >> std::quoted(tempGroceryItem._productName) && stream >> comma && stream >> tempGroceryItem._price)
+  {
+    groceryItem = std::move(tempGroceryItem);
+  }
   return stream;
+  //////
+
+  // stream >> std::quoted(tempGroceryItem._upcCode);
+
+  // if (!stream)
+  // {
+  //   return stream;
+  // }
+
+  // stream >> comma ;
+
+  // if (!stream && comma != ',')
+  // {
+  //   return stream;
+  // }
+
+  // stream >> std::quoted(tempGroceryItem._brandName);
+
+  // if (!stream)
+  // {
+  //   return stream;
+  // }
+
+  // stream >> comma ;
+
+  // if (!stream)
+  // {
+  //   return stream;
+  // }
+
+  // stream >> std::quoted(tempGroceryItem._productName);
+
+  // if (!stream)
+  // {
+  //   return stream;
+  // }
+
+  // stream >> comma ;
+
+  // if (!stream)
+  // {
+  //   return stream;
+  // }
+
+  // stream >> tempGroceryItem._price;
+
+  // if (!stream)
+  // {
+  //   return stream;
+  // }
+
+  // groceryItem = std::move(tempGroceryItem);
+
+  // return stream;
   /////////////////////// END-TO-DO (21) ////////////////////////////
 }
 
