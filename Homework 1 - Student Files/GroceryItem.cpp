@@ -36,7 +36,7 @@ namespace // unnamed, anonymous namespace
     ///         do this instead:
     ///           return a < b;
     double difference{std::abs(lhs - rhs)};
-    return difference <= (std::max(lhs, rhs) * EPSILON);
+    return difference <= EPSILON;
     // return difference <= EPSILON ? true : (difference <= (std::max(lhs, rhs) * EPSILON));
 
     /////////////////////// END-TO-DO (1) ////////////////////////////
