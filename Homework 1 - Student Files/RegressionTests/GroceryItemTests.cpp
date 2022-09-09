@@ -169,6 +169,7 @@ namespace  // anonymous
 
     auto check = [&]()
     {
+      std::cout << std::boolalpha << (less < more) << (less <= more) << (more > less) << (more >= less) << std::endl; 
       // Exercise all relational operators for the class-under-test.
       return less <  more
           && less <= more
