@@ -247,8 +247,8 @@ std::weak_ordering GroceryItem::operator<=>(const GroceryItem &rhs) const noexce
   if (_upcCode.compare(rhs._upcCode) < 0) result -= 1;
   if (_brandName.compare(rhs._brandName) > 0 && result == 0) result += 1;
   if (_brandName.compare(rhs._brandName) < 0 && result == 0) result -= 1;
-  if (_productName.compare(rhs._productName) > 0 && result == 0) result += 1;
-  if (_productName.compare(rhs._productName) < 0 && result == 0) result -= 1;
+  // if (_productName.compare(rhs._productName) > 0 && result == 0) result += 1;
+  // if (_productName.compare(rhs._productName) < 0 && result == 0) result -= 1;
 
   if (floating_point_is_equal(_price, rhs._price) && result ==0) result = 0;
   if (!floating_point_is_equal(_price, rhs._price) && _price > rhs._price && result == 0) result = 1;
