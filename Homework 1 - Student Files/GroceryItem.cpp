@@ -243,6 +243,9 @@ std::weak_ordering GroceryItem::operator<=>(const GroceryItem &rhs) const noexce
 
   ///////////////////////// TO-DO (19) //////////////////////////////
   auto result = 0;
+  std::cout << std::boolalpha << _upcCode.compare(rhs._upcCode) <<std::endl;
+  std::cout << std::boolalpha << _brandName.compare(rhs._brandName) <<std::endl;
+  
   if (_upcCode.compare(rhs._upcCode) > 0) result +=1;
   if (_upcCode.compare(rhs._upcCode) < 0) result -= 1;
   if (_brandName.compare(rhs._brandName) > 0 && result == 0) result += 1;
