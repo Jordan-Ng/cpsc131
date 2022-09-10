@@ -36,8 +36,8 @@ namespace // unnamed, anonymous namespace
     ///         do this instead:
     ///           return a < b;
     double difference{std::abs(lhs - rhs)};
-    return difference <= EPSILON;
-    // return difference <= EPSILON ? true : (difference <= (std::max(lhs, rhs) * EPSILON));
+    // return difference <= EPSILON;
+    return difference <= EPSILON ? true : (difference <= (std::max(lhs, rhs) * EPSILON));
 
     /////////////////////// END-TO-DO (1) ////////////////////////////
   }
@@ -242,24 +242,37 @@ std::weak_ordering GroceryItem::operator<=>(const GroceryItem &rhs) const noexce
   // (sorted) by UPC code, product name, brand name, then price.
 
   ///////////////////////// TO-DO (19) //////////////////////////////
-  auto result = 0;
-  std::cout << std::boolalpha << _upcCode.compare(rhs._upcCode) <<std::endl;
-  std::cout << std::boolalpha << _brandName.compare(rhs._brandName) <<std::endl;
+  int compareUpcCode = _upcCode.compare(rhs._upcCode);
+  if (compareUpcCode > 0)return std::weak_ordering::greater;
+  if (compareUpcCode < 0)return std::weak_ordering::less;
+
+  int compareProductName = _productName.compare(rhs._productName);
+  if (compareProductName > 0)return std::weak_ordering::greater;
+  if (compareProductName < 0)return std::weak_ordering::less;
+
+  int compareBrandName = _brandName.compare(rhs._brandName);
+  if (compareBrandName > 0)return std::weak_ordering::greater;
+  if (compareBrandName < 0)return std::weak_ordering::less;
+ 
+  if (floating_point_is_equal(_price, rhs._price)) return std::weak_ordering::equivalent;
+  if (!floating_point_is_equal(_price, rhs._price) && _price > rhs._price) return std::weak_ordering::greater;
+  if (!floating_point_is_equal(_price, rhs._price) && _price < rhs._price) return std::weak_ordering::less;
+  // auto result = 0;
   
-  if (_upcCode.compare(rhs._upcCode) > 0) result +=1;
-  if (_upcCode.compare(rhs._upcCode) < 0) result -= 1;
-  if (_productName.compare(rhs._productName) > 0 && result == 0) result += 1;
-  if (_productName.compare(rhs._productName) < 0 && result == 0) result -= 1;
-  if (_brandName.compare(rhs._brandName) > 0 && result == 0) result += 1;
-  if (_brandName.compare(rhs._brandName) < 0 && result == 0) result -= 1;
+  // if (_upcCode.compare(rhs._upcCode) > 0) result +=1;
+  // if (_upcCode.compare(rhs._upcCode) < 0) result -= 1;
+  // if (_productName.compare(rhs._productName) > 0 && result == 0) result += 1;
+  // if (_productName.compare(rhs._productName) < 0 && result == 0) result -= 1;
+  // if (_brandName.compare(rhs._brandName) > 0 && result == 0) result += 1;
+  // if (_brandName.compare(rhs._brandName) < 0 && result == 0) result -= 1;
 
-  if (floating_point_is_equal(_price, rhs._price) && result ==0) result = 0;
-  if (!floating_point_is_equal(_price, rhs._price) && _price > rhs._price && result == 0) result = 1;
-  if (!floating_point_is_equal(_price, rhs._price) && _price < rhs._price && result == 0) result = -1;
+  // if (floating_point_is_equal(_price, rhs._price) && result ==0) result = 0;
+  // if (!floating_point_is_equal(_price, rhs._price) && _price > rhs._price && result == 0) result = 1;
+  // if (!floating_point_is_equal(_price, rhs._price) && _price < rhs._price && result == 0) result = -1;
 
-  if (result > 0) return std::weak_ordering::greater;
-  else if (result < 0) return std::weak_ordering::less;
-  else return std::weak_ordering::equivalent;
+  // if (result > 0) return std::weak_ordering::greater;
+  // else if (result < 0) return std::weak_ordering::less;
+  // else return std::weak_ordering::equivalent;
   /////////////////////// END-TO-DO (19) ////////////////////////////
 }
 
