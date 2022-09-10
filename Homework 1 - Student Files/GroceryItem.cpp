@@ -248,40 +248,20 @@ std::weak_ordering GroceryItem::operator<=>(const GroceryItem &rhs) const noexce
   bool isSamePrice = floating_point_is_equal(_price, rhs._price);
 
   if (compareUpcCode != 0 || compareProductName != 0 || compareBrandName != 0 || !isSamePrice ){
-    compareUpcCode > 0 ? std::weak_ordering::greater : std::weak_ordering::less;
-    compareProductName > 0 ? std::weak_ordering::greater : std::weak_ordering::less;
-    compareBrandName > 0 ? std::weak_ordering::greater : std::weak_ordering::less;
-    _price > rhs._price ? std::weak_ordering::greater : std::weak_ordering::less;
-    // if (compareUpcCode > 0)return std::weak_ordering::greater;
-    // if (compareUpcCode < 0)return std::weak_ordering::less;
+    if (compareUpcCode > 0)return std::weak_ordering::greater;
+    else if (compareUpcCode < 0)return std::weak_ordering::less;
 
-    // if (compareProductName > 0)return std::weak_ordering::greater;
-    // if (compareProductName < 0)return std::weak_ordering::less;
+    if (compareProductName > 0)return std::weak_ordering::greater;
+    else if (compareProductName < 0)return std::weak_ordering::less;
 
-    // if (compareBrandName > 0)return std::weak_ordering::greater;
-    // if (compareBrandName < 0)return std::weak_ordering::less;
+    if (compareBrandName > 0)return std::weak_ordering::greater;
+    else if (compareBrandName < 0)return std::weak_ordering::less;
   
-    // if (!floating_point_is_equal(_price, rhs._price) && _price > rhs._price) return std::weak_ordering::greater;
-    // if (!floating_point_is_equal(_price, rhs._price) && _price < rhs._price) return std::weak_ordering::less;
+    if (_price > rhs._price) return std::weak_ordering::greater;
+    else if (_price < rhs._price) return std::weak_ordering::less;
   }
 
   else return std::weak_ordering::equivalent;
-  // auto result = 0;
-  
-  // if (_upcCode.compare(rhs._upcCode) > 0) result +=1;
-  // if (_upcCode.compare(rhs._upcCode) < 0) result -= 1;
-  // if (_productName.compare(rhs._productName) > 0 && result == 0) result += 1;
-  // if (_productName.compare(rhs._productName) < 0 && result == 0) result -= 1;
-  // if (_brandName.compare(rhs._brandName) > 0 && result == 0) result += 1;
-  // if (_brandName.compare(rhs._brandName) < 0 && result == 0) result -= 1;
-
-  // if (floating_point_is_equal(_price, rhs._price) && result ==0) result = 0;
-  // if (!floating_point_is_equal(_price, rhs._price) && _price > rhs._price && result == 0) result = 1;
-  // if (!floating_point_is_equal(_price, rhs._price) && _price < rhs._price && result == 0) result = -1;
-
-  // if (result > 0) return std::weak_ordering::greater;
-  // else if (result < 0) return std::weak_ordering::less;
-  // else return std::weak_ordering::equivalent;
   /////////////////////// END-TO-DO (19) ////////////////////////////
 }
 
