@@ -243,19 +243,28 @@ std::weak_ordering GroceryItem::operator<=>(const GroceryItem &rhs) const noexce
 
   ///////////////////////// TO-DO (19) //////////////////////////////
   int compareUpcCode = _upcCode.compare(rhs._upcCode);
-  if (compareUpcCode > 0)return std::weak_ordering::greater;
-  if (compareUpcCode < 0)return std::weak_ordering::less;
-
   int compareProductName = _productName.compare(rhs._productName);
-  if (compareProductName > 0)return std::weak_ordering::greater;
-  if (compareProductName < 0)return std::weak_ordering::less;
-
   int compareBrandName = _brandName.compare(rhs._brandName);
-  if (compareBrandName > 0)return std::weak_ordering::greater;
-  if (compareBrandName < 0)return std::weak_ordering::less;
- 
-  if (!floating_point_is_equal(_price, rhs._price) && _price > rhs._price) return std::weak_ordering::greater;
-  if (!floating_point_is_equal(_price, rhs._price) && _price < rhs._price) return std::weak_ordering::less;
+  bool isSamePrice = floating_point_is_equal(_price, rhs._price);
+
+  if (compareUpcCode != 0 || compareProductName != 0 || compareBrandName != 0 || !isSamePrice ){
+    compareUpcCode > 0 ? std::weak_ordering::greater : std::weak_ordering::less;
+    compareProductName > 0 ? std::weak_ordering::greater : std::weak_ordering::less;
+    compareBrandName > 0 ? std::weak_ordering::greater : std::weak_ordering::less;
+    _price > rhs._price ? std::weak_ordering::greater : std::weak_ordering::less;
+    // if (compareUpcCode > 0)return std::weak_ordering::greater;
+    // if (compareUpcCode < 0)return std::weak_ordering::less;
+
+    // if (compareProductName > 0)return std::weak_ordering::greater;
+    // if (compareProductName < 0)return std::weak_ordering::less;
+
+    // if (compareBrandName > 0)return std::weak_ordering::greater;
+    // if (compareBrandName < 0)return std::weak_ordering::less;
+  
+    // if (!floating_point_is_equal(_price, rhs._price) && _price > rhs._price) return std::weak_ordering::greater;
+    // if (!floating_point_is_equal(_price, rhs._price) && _price < rhs._price) return std::weak_ordering::less;
+  }
+
   else return std::weak_ordering::equivalent;
   // auto result = 0;
   
@@ -315,68 +324,11 @@ std::istream &operator>>(std::istream &stream, GroceryItem &groceryItem)
   char comma = ',';
   GroceryItem tempGroceryItem;
 
-  // validate the state of the string
-
-  //////
   if (stream >> std::quoted(tempGroceryItem._upcCode) && stream >> comma && stream >> std::quoted(tempGroceryItem._brandName) && stream >> comma && stream >> std::quoted(tempGroceryItem._productName) && stream >> comma && stream >> tempGroceryItem._price)
   {
     groceryItem = std::move(tempGroceryItem);
   }
   return stream;
-  //////
-
-  // stream >> std::quoted(tempGroceryItem._upcCode);
-
-  // if (!stream)
-  // {
-  //   return stream;
-  // }
-
-  // stream >> comma ;
-
-  // if (!stream && comma != ',')
-  // {
-  //   return stream;
-  // }
-
-  // stream >> std::quoted(tempGroceryItem._brandName);
-
-  // if (!stream)
-  // {
-  //   return stream;
-  // }
-
-  // stream >> comma ;
-
-  // if (!stream)
-  // {
-  //   return stream;
-  // }
-
-  // stream >> std::quoted(tempGroceryItem._productName);
-
-  // if (!stream)
-  // {
-  //   return stream;
-  // }
-
-  // stream >> comma ;
-
-  // if (!stream)
-  // {
-  //   return stream;
-  // }
-
-  // stream >> tempGroceryItem._price;
-
-  // if (!stream)
-  // {
-  //   return stream;
-  // }
-
-  // groceryItem = std::move(tempGroceryItem);
-
-  // return stream;
   /////////////////////// END-TO-DO (21) ////////////////////////////
 }
 
