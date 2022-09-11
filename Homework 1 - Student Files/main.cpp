@@ -14,13 +14,15 @@ int main()
     // while (std::cout << "Enter UPC, Product Brand, Product Name, and Price\n", std::cin >> groceryItem)
     while (true)
     {
-        std::cout << "Enter UPC, Product Brand, Product Name, and Price\n" << std::endl;
-        if (std::cin >> groceryItem){
+        std::cout << "Enter UPC, Product Brand, Product Name, and Price\n"
+                  << std::endl;
+        if (std::cin >> groceryItem)
+        {
             shoppingCart.push_back(new GroceryItem(std::move(groceryItem)));
-            std::cout << shoppingCart.back() << std::endl;
             std::cout << "Item added to shopping cart: " << *shoppingCart.back() << std::endl;
         }
-        else break;
+        else
+            break;
     }
 
     std::cout << "\n\nHere is an itemized list of the items in your shopping cart:\n";
