@@ -35,10 +35,7 @@ namespace // unnamed, anonymous namespace
     ///           else       return false;
     ///         do this instead:
     ///           return a < b;
-    double difference{std::abs(lhs - rhs)};
-    return difference <= EPSILON;
-    // return difference <= EPSILON ? true : (difference <= (std::max(lhs, rhs) * EPSILON));
-
+    return std::abs(lhs - rhs) <= EPSILON;
     /////////////////////// END-TO-DO (1) ////////////////////////////
   }
 } // unnamed, anonymous namespace
@@ -262,22 +259,6 @@ std::weak_ordering GroceryItem::operator<=>(const GroceryItem &rhs) const noexce
   }
 
   return std::weak_ordering::equivalent;
-  // auto result = 0;
-  
-  // if (_upcCode.compare(rhs._upcCode) > 0) result +=1;
-  // if (_upcCode.compare(rhs._upcCode) < 0) result -= 1;
-  // if (_productName.compare(rhs._productName) > 0 && result == 0) result += 1;
-  // if (_productName.compare(rhs._productName) < 0 && result == 0) result -= 1;
-  // if (_brandName.compare(rhs._brandName) > 0 && result == 0) result += 1;
-  // if (_brandName.compare(rhs._brandName) < 0 && result == 0) result -= 1;
-
-  // if (floating_point_is_equal(_price, rhs._price) && result ==0) result = 0;
-  // if (!floating_point_is_equal(_price, rhs._price) && _price > rhs._price && result == 0) result = 1;
-  // if (!floating_point_is_equal(_price, rhs._price) && _price < rhs._price && result == 0) result = -1;
-
-  // if (result > 0) return std::weak_ordering::greater;
-  // else if (result < 0) return std::weak_ordering::less;
-  // else return std::weak_ordering::equivalent;
   /////////////////////// END-TO-DO (19) ////////////////////////////
 }
 
