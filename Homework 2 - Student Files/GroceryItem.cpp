@@ -89,10 +89,12 @@ GroceryItem &GroceryItem::operator=(GroceryItem const &rhs) &
 GroceryItem &GroceryItem::operator=(GroceryItem &&rhs) &noexcept
 ///////////////////////// TO-DO (6) //////////////////////////////
 {
-  _productName = std::move(rhs._productName);
-  _brandName = std::move(rhs._brandName);
-  _upcCode = std::move(rhs._upcCode);
-  _price = rhs._price;
+  if (this != &rhs){
+    _productName = std::move(rhs._productName);
+    _brandName = std::move(rhs._brandName);
+    _upcCode = std::move(rhs._upcCode);
+    _price = rhs._price;
+  }
   return *this;
 }
 /////////////////////// END-TO-DO (6) ////////////////////////////

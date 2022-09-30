@@ -91,7 +91,7 @@ int main()
 {
   try
   {
-    // basicScenario();
+    basicScenario();
 
     ///////////////////////// TO-DO (1) //////////////////////////////
     /// Create, manipulate, and display your own GroceryList object here.  Not looking for anything specific but don't just repeat
@@ -102,12 +102,15 @@ int main()
     /// indexed offsets.  Remove grocery items from the top, middle, and bottom.  Create, concatenate, rearrange, and compare
     /// several (more than two) lists. Have some fun with it!  The purpose is to show me you, as a GroceryList class consumer
     /// (i.e., the client) understand how to *use* the GroceryList.
-    GroceryList myList;
-    GroceryItem groceryItem1("productName1", "brandName1", "upcCode1", 0.0);
+
+    // GroceryList myList;
+    // GroceryItem groceryItem1("productName1", "brandName1", "upcCode1", 0.0);
     // GroceryItem groceryItem2("productName2", "brandName2", "upcCode2", 0.0);
-    myList.insert(groceryItem1, GroceryList::Position::BOTTOM);
-    // myList.insert(groceryItem2);
-    // std::cout << myList << std::endl;
+    // myList.insert(groceryItem1, GroceryList::Position::BOTTOM);
+    
+    // GroceryList thingsToBuy1 = {{"milk"}, {"eggs"}};
+    // thingsToBuy1.insert({"burbers"}, GroceryList::Position::BOTTOM);
+    // thingsToBuy1.insert({"hawtdogs"}, 1);
     /////////////////////// END-TO-DO (1) ////////////////////////////
   }
 
