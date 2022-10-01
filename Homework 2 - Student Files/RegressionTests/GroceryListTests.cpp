@@ -140,10 +140,7 @@ namespace    // anonymous
 
       try
       {
-        // for( unsigned i = 0; i < 100; ++i ) list.insert( GroceryItem{ "GroceryItem-" + std::to_string( i ) } );
-        for( unsigned i = 0; i < 100; ++i ) {
-          list.insert( GroceryItem{ "GroceryItem-" + std::to_string( i ) } );
-        std::cout << "append" << std::to_string(i) << list.size() <<std::endl;}
+        for( unsigned i = 0; i < 100; ++i ) list.insert( GroceryItem{ "GroceryItem-" + std::to_string( i ) } );
         affirm.is_true( "Fixed size array capacity check", false );
       }
       catch ( const GroceryList::CapacityExceeded_Ex & )  // expected
