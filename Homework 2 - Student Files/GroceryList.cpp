@@ -180,11 +180,11 @@ void GroceryList::insert( const GroceryItem & groceryItem, std::size_t offsetFro
       /// Open a hole to insert new grocery item by shifting to the right everything at and after the insertion point.
       /// For example:  a[8] = a[7];  a[7] = a[6];  a[6] = a[5];  and so on.
       /// std::move_backward will be helpful, or write your own loop.
-      if(offsetFromTop <= _gList_array_size - 1){        
+      if(offsetFromTop <= _gList_array_size - 1 && size() != 0){        
         std::move_backward(
           std::next(_gList_array.begin(), offsetFromTop), 
-          std::next(_gList_array.begin(), _gList_array_size -1),        
-          std::next(_gList_array.begin(), _gList_array_size)
+          std::next(_gList_array.begin(), _gList_array_size),        
+          std::next(_gList_array.begin(), _gList_array_size + 1)
         );
       }
       _gList_array.begin()[offsetFromTop] = groceryItem;
