@@ -183,7 +183,7 @@ void GroceryList::insert( const GroceryItem & groceryItem, std::size_t offsetFro
       if(offsetFromTop <= _gList_array_size - 1){        
         std::move_backward(
           std::next(_gList_array.begin(), offsetFromTop), 
-          std::next(_gList_array.begin(), _gList_array_size),        
+          std::next(_gList_array.begin(), _gList_array_size -1),        
           std::next(_gList_array.begin(), _gList_array_size)
         );
       }
