@@ -180,7 +180,7 @@ void GroceryList::insert( const GroceryItem & groceryItem, std::size_t offsetFro
       /// Open a hole to insert new grocery item by shifting to the right everything at and after the insertion point.
       /// For example:  a[8] = a[7];  a[7] = a[6];  a[6] = a[5];  and so on.
       /// std::move_backward will be helpful, or write your own loop.
-      if(_gList_array_size == _gList_array.size()) throw CapacityExceeded_Ex("attempting to insert into a filled array");
+      if(!(_gList_array_size < _gList_array.size())) throw CapacityExceeded_Ex("attempting to insert into a filled array");
       if(offsetFromTop <= _gList_array_size - 1 && size() != 0){        
         std::move_backward(
           std::next(_gList_array.begin(), offsetFromTop), 
@@ -192,7 +192,7 @@ void GroceryList::insert( const GroceryItem & groceryItem, std::size_t offsetFro
       ++ _gList_array_size;      
     /////////////////////// END-TO-DO (4) ////////////////////////////
   } // Part 1 - Insert into array
-      // std::cout << "\n";
+
 
 
 
@@ -275,13 +275,13 @@ void GroceryList::remove( std::size_t offsetFromTop )
       ///
       /// std::move() will be helpful, or write your own loop.  Also remember that you must keep track of the number of valid grocery items
       /// in your array, so don't forget to adjust _gList_array_size.
-      auto startingPosition = offsetFromTop < _gList_array_size-1 ? _gList_array.begin() + offsetFromTop + 1 : _gList_array.begin() + offsetFromTop;
-      auto endingPosition = offsetFromTop < _gList_array_size-1 ? _gList_array.begin() + _gList_array_size : _gList_array.begin() + offsetFromTop;
+    // -- approach 1 -- 
     // if (offsetFromTop < _gList_array_size-1){
     //   // for (auto current = std::next(_gList_array.begin(), offsetFromTop+1); current != _gList_array.end(); ++current){
     //   //   *(current-1) = std::move(*current);
     //   // }
 
+    // -- approach 2 --
     //   std::move(
     //     _gList_array.begin() + offsetFromTop +1, 
     //     _gList_array.begin() + _gList_array_size, 
@@ -290,7 +290,13 @@ void GroceryList::remove( std::size_t offsetFromTop )
     // else {
     //   std::move(_gList_array.begin() + offsetFromTop, _gList_array.begin() + offsetFromTop, _gList_array.begin() + offsetFromTop);
     // }
-    std::move(startingPosition, endingPosition, _gList_array.begin() + offsetFromTop);
+
+    // -- approach 3 --
+      auto startingPosition = offsetFromTop < _gList_array_size-1 ? _gList_array.begin() + offsetFromTop + 1 : _gList_array.begin() + offsetFromTop;
+      // auto endingPosition = offsetFromTop < _gList_array_size-1 ? _gList_array.begin() + _gList_array_size : _gList_array.begin() + offsetFromTop;
+      
+      // std::move(startingPosition, endingPosition, _gList_array.begin() + offsetFromTop);
+      std::move(startingPosition, _gList_array.begin() + _gList_array_size, _gList_array.begin() + offsetFromTop);
       -- _gList_array_size;
     /////////////////////// END-TO-DO (8) ////////////////////////////
   } // Part 1 - Remove from array
@@ -433,8 +439,8 @@ std::weak_ordering GroceryList::operator<=>( GroceryList const & rhs ) const
     ///
     ///
     /// The content of all the grocery lists's containers is the same - so pick an easy one to walk.
-    int commonExtent = static_cast<int> (std::max(_gList_vector.size(), rhs._gList_vector.size()));
-    for (int i=0; i < commonExtent; ++i ){
+    unsigned commonExtent = (std::max(_gList_vector.size(), rhs._gList_vector.size()));
+    for (unsigned i=0; i < commonExtent; ++i ){
       std::weak_ordering comparison = _gList_vector.at(i) <=> rhs._gList_vector.at(i);
       if ( comparison != 0) return comparison;
     }  
@@ -462,7 +468,7 @@ bool GroceryList::operator==( GroceryList const & rhs ) const
     /// so pick an easy one to walk.
   if (size() != rhs.size()) return false;
   
-  for(auto i=0; i< static_cast<int> (_gList_array_size-1) ; ++i){
+  for(unsigned i=0; i< _gList_array_size-1 ; ++i){
     if ( !(_gList_array.at(i) == rhs._gList_array.at(i))) return false;
   }
   return true;
@@ -582,8 +588,7 @@ std::istream & operator>>( std::istream & stream, GroceryList & groceryList )
   && stream >> comma 
   && stream >> price){
     GroceryItem groceryItem(productName, brandName, upcCode, price);
-    groceryList.insert(groceryItem, GroceryList::Position::BOTTOM);
-    // grocerylist.insert(std::move(new GroceryItem(productName, brandName, upcCode, price)))
+    groceryList.insert(groceryItem, GroceryList::Position::BOTTOM);    
   }
   /////////////////////// END-TO-DO (18) ////////////////////////////
 
