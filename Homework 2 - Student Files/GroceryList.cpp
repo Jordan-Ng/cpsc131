@@ -439,7 +439,7 @@ std::weak_ordering GroceryList::operator<=>( GroceryList const & rhs ) const
     ///
     ///
     /// The content of all the grocery lists's containers is the same - so pick an easy one to walk.
-    unsigned commonExtent = (std::max(_gList_vector.size(), rhs._gList_vector.size()));
+    auto commonExtent = std::max(_gList_vector.size(), rhs._gList_vector.size());
     for (unsigned i=0; i < commonExtent; ++i ){
       std::weak_ordering comparison = _gList_vector.at(i) <=> rhs._gList_vector.at(i);
       if ( comparison != 0) return comparison;
