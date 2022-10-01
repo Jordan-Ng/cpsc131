@@ -50,7 +50,7 @@ GroceryItem::GroceryItem(std::string productName, std::string brandName, std::st
 /// Copying the parameters into the object's attributes (member variables) "works" but is not correct.  Be sure to move the parameters into the object's attributes
 : _upcCode{std::move(upcCode)}, _brandName{std::move(brandName)}, _productName{std::move(productName)}, _price{price}
 {
-  std::cout << "conversion constructor" << std::endl;
+  // std::cout << "conversion constructor" << std::endl;
 }
 /////////////////////// END-TO-DO (2) ////////////////////////////
 
@@ -59,7 +59,7 @@ GroceryItem::GroceryItem(GroceryItem const &other)
 ///////////////////////// TO-DO (3) //////////////////////////////
 : _upcCode{other._upcCode}, _brandName{other._brandName}, _productName{other._productName}, _price{other._price}
 {
-  std::cout << "copy constructor" << std::endl;
+  // std::cout << "copy constructor" << std::endl;
 }
 /////////////////////// END-TO-DO (3) ////////////////////////////
 
@@ -68,7 +68,7 @@ GroceryItem::GroceryItem(GroceryItem &&other) noexcept
 ///////////////////////// TO-DO (4) //////////////////////////////
 : _upcCode{std::move(other._upcCode)}, _brandName{std::move(other._brandName)}, _productName{std::move(other._productName)}, _price{other._price}
 {
-  std::cout << "move constructor" << std::endl;
+  // std::cout << "move constructor" << std::endl;
 }
 /////////////////////// END-TO-DO (4) ////////////////////////////
 
