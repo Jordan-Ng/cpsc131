@@ -180,7 +180,7 @@ void GroceryList::insert( const GroceryItem & groceryItem, std::size_t offsetFro
       /// Open a hole to insert new grocery item by shifting to the right everything at and after the insertion point.
       /// For example:  a[8] = a[7];  a[7] = a[6];  a[6] = a[5];  and so on.
       /// std::move_backward will be helpful, or write your own loop.
-      if(!(_gList_array_size < _gList_array.size())) throw CapacityExceeded_Ex("attempting to insert into a filled array");
+      if(_gList_array_size >= _gList_array.size()) throw CapacityExceeded_Ex("attempting to insert into a filled array");
       if(offsetFromTop <= _gList_array_size - 1 && size() != 0){        
         std::move_backward(
           std::next(_gList_array.begin(), offsetFromTop), 
@@ -188,7 +188,7 @@ void GroceryList::insert( const GroceryItem & groceryItem, std::size_t offsetFro
           std::next(_gList_array.begin(), _gList_array_size + 1)
         );
       }
-      // _gList_array.begin()[offsetFromTop] = groceryItem;
+      
       _gList_array.at(offsetFromTop) = groceryItem;
       ++ _gList_array_size;      
     /////////////////////// END-TO-DO (4) ////////////////////////////
@@ -379,8 +379,6 @@ GroceryList & GroceryList::operator+=( const GroceryList & rhs )
     /// to traverse. Walk the container you picked inserting its grocery items to the bottom of this grocery list. Remember to add
     /// that grocery item at the bottom of each container (array, vector, list, and forward_list) of this grocery list, and that you
     /// already have a function that does that.
-  // for (auto i=0; i < rhs._gList_array_size; ++i){
-  //   insert(rhs._gList_array.begin()[i], Position::BOTTOM);
   for (auto i = rhs._gList_vector.begin(); i != rhs._gList_vector.end(); ++i){
     insert(*i, Position::BOTTOM);
   }
@@ -449,7 +447,7 @@ bool GroceryList::operator==( GroceryList const & rhs ) const
   if (size() != rhs.size()) return false;
   
   for(unsigned i=0; i< _gList_array_size-1 ; ++i){
-    if ( !(_gList_array.at(i) == rhs._gList_array.at(i))) return false;
+    if ( _gList_array.at(i) != rhs._gList_array.at(i)) return false;
   }
   return true;
   /////////////////////// END-TO-DO (16) ////////////////////////////
