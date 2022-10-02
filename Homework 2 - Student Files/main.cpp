@@ -103,45 +103,57 @@ int main()
     /// several (more than two) lists. Have some fun with it!  The purpose is to show me you, as a GroceryList class consumer
     /// (i.e., the client) understand how to *use* the GroceryList.
 
+    std::cout << "\n\n --------------- Client Driver Code ---------------- \n";
+
     // me: my grocery list and print
+    GroceryItem iceCream("ice-cream");
     GroceryList myGroceryList = {{"eggs"}, {"coffee"}, {"apples"}, {"oranges"}, {"ice-cream"}};
     std::cout<< "---- my list ---- \n" << myGroceryList << "---- end of list ---- \n\n";
+    
     // roommate1: grocery list and print
     GroceryList roommateOneGroceryList = {{"coffee"}, {"eggs"}, {"apples"}, {"oranges"}, {"ice-cream"}};
     std::cout<< "---- roommate 1's list ---- \n" << roommateOneGroceryList << "---- end of list ---- \n\n";
+
     // roommate2: grocery list and print
     GroceryList roommateTwoGroceryList = {{"potato chips"}, {"soda"}, {"ice-cream"}};
     std::cout<< "---- roommate 2's list ---- \n" << roommateTwoGroceryList << "---- end of list ---- \n\n";
+
     // roommate1 -> me: think we have different lists
     if (roommateOneGroceryList != myGroceryList) std::cout<<"roommate1 -> me: I think we have different lists..\n";
+    
     // roommate2 -> me: think we have different lists
     if (roommateTwoGroceryList <=> myGroceryList != 0) 
     std::cout<< "roommate2 -> me: I think we have different lists too..\n"
-    // roommate2: let's go grocery shopping together!
-            << "roommate2: Let's go grocery shopping together!\n";
+             << "roommate2: Let's go grocery shopping together!\n";
+    
     // me: wait, hold on, the order's just off
-    std::cout << "me -> roommate1: wait, hold on.. our order's just off!\n";
-    // me: I'll just go with roommate2 and do the shopping for you, roommate1
+    std::cout << "me -> roommate1: wait, hold on.. the order of our list is just a little off!\n";
     myGroceryList.moveToTop({"coffee"});
+
+    // me: I'll just go with roommate2 and do the shopping for you, roommate1
     if (myGroceryList <=> roommateOneGroceryList == 0) std::cout<< "me: I'll just go with roommate2 and do the shopping for you, roommate1.\n";
+
     // roommate1: awesome, I just have a couple more things to add to the list
     std::cout << "roommate1 -> me: awesome, I just have a couple more things to add to the list\n";
-    myGroceryList += {{"bread"}, {"tomatoes"}};
+    
     // me: sure, gotcha!
+    myGroceryList += {{"bread"}, {"tomatoes"}};
     if(myGroceryList.size() == 7) 
     std::cout << "me: sure, gotcha!\n"
      << "me -> roommate2: let's combine our lists so we can find everything quicker\n\n";
 
+    // combined list
     myGroceryList += roommateTwoGroceryList;
     std::cout << "---- combined list ----\n" << myGroceryList << "---- end of list ----\n\n";
     
+    // grocery shopping
     myGroceryList.remove(myGroceryList.find({"coffee"}));
     std::cout << "me: found cofee!\n";
     
     myGroceryList.remove(7);
     std::cout << "roommate2: found soda!\n";
     
-    myGroceryList.remove(myGroceryList.find({"ice-cream"}));
+    myGroceryList.remove(iceCream);
     std::cout << "me: found ice-cream!\n";
 
     myGroceryList.remove(myGroceryList.find({"apples"}));
@@ -159,10 +171,38 @@ int main()
     myGroceryList.remove(myGroceryList.size()-1);
     std::cout << "roommate2: found chips!\n";
 
+    std::cout << "me: ahh shucks! forgot a few more items..\n";
+    GroceryItem cilantro("cilantro");
+    GroceryItem milk("milk");
+
+    myGroceryList.insert(cilantro, GroceryList::Position::BOTTOM);
+    myGroceryList.insert(milk, 1);
+
+    std::cout << "me -> roommate2: did you forget something too? \n"
+              << "Add a grocery item to the list by specifying the item's upc code, brand name, product name and price in this specific order\n"
+              << "for example: \"00016000306707\", \"Berry Crocker\", \"Betty Crocker Chocolate Chunk Cookie Mix\", 17.19 \n"
+              << "  Enter CTL-Z (Windows) or CTL-D (Linux) to quit \n\n";
+    
+    std::size_t listSizeBeforeInput = myGroceryList.size();
+    std::cin >> myGroceryList;
+    if (listSizeBeforeInput == myGroceryList.size()) std::cout << "roommate2 -> me: nope, i'm good!";
+    else std::cout<< "roommate2 -> me: oh yea, just added to the list.";
+
+    std::cout << "\n\n---- printing updated list ----\n" << myGroceryList << "---- end of list ----\n\n";
+
+
     myGroceryList.remove(0);
     std::cout << "me: found bread!\n";
+    myGroceryList.remove(myGroceryList.find({"cilantro"}));
+    std::cout << "me: found cilantro!\n";
+    myGroceryList.remove(myGroceryList.find({"milk"}));
+    std::cout << "me: found milk!\n";
 
-    // roommate2,me: looks like we got everything, let's head back
+    while (myGroceryList.size() != 0){
+      myGroceryList.remove(myGroceryList.size()-1);
+      std::cout << "me: found it!\n";
+    }
+
     if(myGroceryList.size() == 0) std::cout << "roommate2, me: Well, looks like we got everything, let's head back!\n\n";
     /////////////////////// END-TO-DO (1) ////////////////////////////
   }

@@ -188,7 +188,8 @@ void GroceryList::insert( const GroceryItem & groceryItem, std::size_t offsetFro
           std::next(_gList_array.begin(), _gList_array_size + 1)
         );
       }
-      _gList_array.begin()[offsetFromTop] = groceryItem;
+      // _gList_array.begin()[offsetFromTop] = groceryItem;
+      _gList_array.at(offsetFromTop) = groceryItem;
       ++ _gList_array_size;      
     /////////////////////// END-TO-DO (4) ////////////////////////////
   } // Part 1 - Insert into array
@@ -275,27 +276,8 @@ void GroceryList::remove( std::size_t offsetFromTop )
       ///
       /// std::move() will be helpful, or write your own loop.  Also remember that you must keep track of the number of valid grocery items
       /// in your array, so don't forget to adjust _gList_array_size.
-    // -- approach 1 -- 
-    // if (offsetFromTop < _gList_array_size-1){
-    //   // for (auto current = std::next(_gList_array.begin(), offsetFromTop+1); current != _gList_array.end(); ++current){
-    //   //   *(current-1) = std::move(*current);
-    //   // }
-
-    // -- approach 2 --
-    //   std::move(
-    //     _gList_array.begin() + offsetFromTop +1, 
-    //     _gList_array.begin() + _gList_array_size, 
-    //     _gList_array.begin() + offsetFromTop);
-    // }
-    // else {
-    //   std::move(_gList_array.begin() + offsetFromTop, _gList_array.begin() + offsetFromTop, _gList_array.begin() + offsetFromTop);
-    // }
-
-    // -- approach 3 --
       auto startingPosition = offsetFromTop < _gList_array_size-1 ? _gList_array.begin() + offsetFromTop + 1 : _gList_array.begin() + offsetFromTop;
-      // auto endingPosition = offsetFromTop < _gList_array_size-1 ? _gList_array.begin() + _gList_array_size : _gList_array.begin() + offsetFromTop;
       
-      // std::move(startingPosition, endingPosition, _gList_array.begin() + offsetFromTop);
       std::move(startingPosition, _gList_array.begin() + _gList_array_size, _gList_array.begin() + offsetFromTop);
       -- _gList_array_size;
     /////////////////////// END-TO-DO (8) ////////////////////////////
