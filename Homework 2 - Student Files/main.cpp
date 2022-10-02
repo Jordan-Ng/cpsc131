@@ -91,7 +91,7 @@ int main()
 {
   try
   {
-    basicScenario();
+    // basicScenario();
 
     ///////////////////////// TO-DO (1) //////////////////////////////
     /// Create, manipulate, and display your own GroceryList object here.  Not looking for anything specific but don't just repeat
@@ -103,14 +103,67 @@ int main()
     /// several (more than two) lists. Have some fun with it!  The purpose is to show me you, as a GroceryList class consumer
     /// (i.e., the client) understand how to *use* the GroceryList.
 
-    // GroceryList myList;
-    // GroceryItem groceryItem1("productName1", "brandName1", "upcCode1", 0.0);
-    // GroceryItem groceryItem2("productName2", "brandName2", "upcCode2", 0.0);
-    // myList.insert(groceryItem1, GroceryList::Position::BOTTOM);
+    // me: my grocery list and print
+    GroceryList myGroceryList = {{"eggs"}, {"coffee"}, {"apples"}, {"oranges"}, {"ice-cream"}};
+    std::cout<< "---- my list ---- \n" << myGroceryList << "---- end of list ---- \n\n";
+    // roommate1: grocery list and print
+    GroceryList roommateOneGroceryList = {{"coffee"}, {"eggs"}, {"apples"}, {"oranges"}, {"ice-cream"}};
+    std::cout<< "---- roommate 1's list ---- \n" << roommateOneGroceryList << "---- end of list ---- \n\n";
+    // roommate2: grocery list and print
+    GroceryList roommateTwoGroceryList = {{"potato chips"}, {"soda"}, {"ice-cream"}};
+    std::cout<< "---- roommate 2's list ---- \n" << roommateTwoGroceryList << "---- end of list ---- \n\n";
+    // roommate1 -> me: think we have different lists
+    if (roommateOneGroceryList != myGroceryList) std::cout<<"roommate1 -> me: I think we have different lists..\n";
+    // roommate2 -> me: think we have different lists
+    if (roommateTwoGroceryList <=> myGroceryList != 0) 
+    std::cout<< "roommate2 -> me: I think we have different lists too..\n"
+    // roommate2: let's go grocery shopping together!
+            << "roommate2: Let's go grocery shopping together!\n";
+    // me: wait, hold on, the order's just off
+    std::cout << "me -> roommate1: wait, hold on.. our order's just off!\n";
+    // me: I'll just go with roommate2 and do the shopping for you, roommate1
+    myGroceryList.moveToTop({"coffee"});
+    if (myGroceryList <=> roommateOneGroceryList == 0) std::cout<< "me: I'll just go with roommate2 and do the shopping for you, roommate1.\n";
+    // roommate1: awesome, I just have a couple more things to add to the list
+    std::cout << "roommate1 -> me: awesome, I just have a couple more things to add to the list\n";
+    myGroceryList += {{"bread"}, {"tomatoes"}};
+    // me: sure, gotcha!
+    if(myGroceryList.size() == 7) 
+    std::cout << "me: sure, gotcha!\n"
+     << "me -> roommate2: let's combine our lists so we can find everything quicker\n\n";
+
+    myGroceryList += roommateTwoGroceryList;
+    std::cout << "---- combined list ----\n" << myGroceryList << "---- end of list ----\n\n";
     
-    // GroceryList thingsToBuy1 = {{"milk"}, {"eggs"}};
-    // thingsToBuy1.insert({"burbers"}, GroceryList::Position::BOTTOM);
-    // thingsToBuy1.insert({"hawtdogs"}, 1);
+    myGroceryList.remove(myGroceryList.find({"coffee"}));
+    std::cout << "me: found cofee!\n";
+    
+    myGroceryList.remove(7);
+    std::cout << "roommate2: found soda!\n";
+    
+    myGroceryList.remove(myGroceryList.find({"ice-cream"}));
+    std::cout << "me: found ice-cream!\n";
+
+    myGroceryList.remove(myGroceryList.find({"apples"}));
+    std::cout << "me: found apples!\n";
+
+    myGroceryList.remove(myGroceryList.find({"oranges"}));
+    std::cout << "me: found oranges!\n";
+
+    myGroceryList.remove(0);
+    std::cout << "roommate2: found eggs!\n";
+
+    myGroceryList.remove(myGroceryList.find({"tomatoes"}));
+    std::cout << "roommate2: found tomatoes!\n";
+
+    myGroceryList.remove(myGroceryList.size()-1);
+    std::cout << "roommate2: found chips!\n";
+
+    myGroceryList.remove(0);
+    std::cout << "me: found bread!\n";
+
+    // roommate2,me: looks like we got everything, let's head back
+    if(myGroceryList.size() == 0) std::cout << "roommate2, me: Well, looks like we got everything, let's head back!\n\n";
     /////////////////////// END-TO-DO (1) ////////////////////////////
   }
 
