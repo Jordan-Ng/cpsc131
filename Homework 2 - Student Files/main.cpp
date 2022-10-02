@@ -91,7 +91,7 @@ int main()
 {
   try
   {
-    // basicScenario();
+    basicScenario();
 
     ///////////////////////// TO-DO (1) //////////////////////////////
     /// Create, manipulate, and display your own GroceryList object here.  Not looking for anything specific but don't just repeat
