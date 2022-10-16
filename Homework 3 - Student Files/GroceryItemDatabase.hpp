@@ -8,6 +8,7 @@
 #include <vector>
 #include <iterator>
 #include <iomanip>
+#include <cstddef>
 #include "GroceryItem.hpp"
 /////////////////////// END-TO-DO (1) ////////////////////////////
 
