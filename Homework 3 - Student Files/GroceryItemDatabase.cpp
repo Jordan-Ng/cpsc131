@@ -103,12 +103,11 @@ GroceryItem * GroceryItemDatabase::find(const std::string & isbn, auto current){
   return GroceryItemDatabase::find(isbn, ++current);
 }
 
-std::size_t size() {
-  return 1;
+std::size_t GroceryItemDatabase::size() const {
+  return _collection.size();
 }
 
 bool GroceryItemDatabase::isEmpty() const noexcept {
-  return _collection.size() == 0;
-  // return size() == 0;
+  return size() == 0;  
 }
 /////////////////////// END-TO-DO (3) ////////////////////////////
