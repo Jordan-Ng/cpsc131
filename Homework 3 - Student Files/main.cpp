@@ -113,7 +113,6 @@ namespace
   {
     ///////////////////////// TO-DO (1) //////////////////////////////
       /// Implement the algorithm above.
-    
     if (quantity == 1){
       working_cart.push(broken_cart.top());
       broken_cart.pop();
@@ -140,7 +139,6 @@ namespace
       /// just like they already are in the "from" cart.  That is, call the above carefully_move_grocery_items function to start
       /// moving grocery items recursively.  Call the above trace function just before calling carefully_move_grocery_items to get a
       /// starting point reference in the movement report.
-    
     std::stack<GroceryItem> spare_cart;
     trace(from, to, spare_cart);
     carefully_move_grocery_items(from.size(), from, to, spare_cart);

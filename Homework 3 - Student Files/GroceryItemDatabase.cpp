@@ -7,8 +7,8 @@
 #include <vector>
 #include <filesystem>
 #include <fstream>
-#include <iomanip>
 #include <cstddef>
+#include <utility>
 #include "GroceryItemDatabase.hpp"
 /////////////////////// END-TO-DO (1) ////////////////////////////
 
@@ -61,7 +61,7 @@ GroceryItemDatabase::GroceryItemDatabase( const std::string & filename )
     /// Hint:  Use your GroceryItem's extraction operator to read GroceryItems, don't reinvent that here.
     ///        Read grocery items until end of file pushing each grocery item into the data store as they're read.
   // for(GroceryItem groceryItem; fin >> groceryItem; _collection.insert_after(_collection.before_begin(), &groceryItem)){++_size;};
-  for (GroceryItem groceryItem; fin >> groceryItem; _collection.push_back(groceryItem));
+  for (GroceryItem groceryItem; fin >> groceryItem; _collection.push_back(std::move(groceryItem)));
   /////////////////////// END-TO-DO (2) ////////////////////////////
 
   // Note:  The file is intentionally not explicitly closed.  The file is closed when fin goes out of scope - for whatever
@@ -88,7 +88,7 @@ GroceryItemDatabase::GroceryItemDatabase( const std::string & filename )
   ///                    depth of recursion may be greater than the program's function call stack size.  But for this programming
   ///                    exercise, getting familiar with recursion is a goal.
 
-GroceryItem * GroceryItemDatabase::find(const std::string & isbn){    
+GroceryItem * GroceryItemDatabase::find(const std::string & isbn){   
   return GroceryItemDatabase::find(isbn, _collection.begin());
 }
 
@@ -107,7 +107,7 @@ std::size_t GroceryItemDatabase::size() const {
   return _collection.size();
 }
 
-bool GroceryItemDatabase::isEmpty() const noexcept {
-  return size() == 0;  
-}
+// bool GroceryItemDatabase::isEmpty() const noexcept {
+//   return size() == 0;  
+// }
 /////////////////////// END-TO-DO (3) ////////////////////////////

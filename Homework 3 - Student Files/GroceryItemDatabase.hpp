@@ -36,20 +36,10 @@ class GroceryItemDatabase
       /// Private implementation details
       /// Add any necessary private helper functions, member attributes, etc.
 
-    // move and copy constructor not really needed for this assignment
-    // GroceryItemDatabase (GroceryItemDatabase const & other) = delete;
-    // GroceryItemDatabase (GroceryItemDatabase  && other) = delete;
-
-    // destructor to deallocate memory
-    // ~ GroceryItemDatabase() noexcept;  
-
     // private helper function for recursive find
     GroceryItem * find(const std::string & isbn, auto current);
 
-    bool isEmpty() const noexcept;
-
-    // std::forward_list<GroceryItem *> _collection;
+    // bool isEmpty() const noexcept;
     std::vector<GroceryItem> _collection;
-    // std::size_t _size = 0;
     /////////////////////// END-TO-DO (2) ////////////////////////////
 };
