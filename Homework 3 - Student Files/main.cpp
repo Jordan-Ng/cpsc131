@@ -175,12 +175,12 @@ int main( int argc, char * argv[] )
     ///      00038000291210   rice krispies    Kellogg's
     ///      00075457129000   milk             any                     <===  heaviest item, put this on the bottom
   
-    myCart.push(std::move(GroceryItem("milk", "any", "00075457129000")));
-    myCart.push(std::move(GroceryItem("rice krispies", "Kellogg's", "00038000291210")));
-    myCart.push(std::move(GroceryItem("hotdogs", "Applegate Farms", "00025317533003")));
-    myCart.push(std::move(GroceryItem("apple pie", "any", "09073649000493")));
-    myCart.push(std::move(GroceryItem("bread", "any", "00835841005255")));
-    myCart.push(std::move(GroceryItem("eggs", "any", "00688267039317")));
+    myCart.push(GroceryItem("milk", "any", "00075457129000"));
+    myCart.push(GroceryItem("rice krispies", "Kellogg's", "00038000291210"));
+    myCart.push(GroceryItem("hotdogs", "Applegate Farms", "00025317533003"));
+    myCart.push(GroceryItem("apple pie", "any", "09073649000493"));
+    myCart.push(GroceryItem("bread", "any", "00835841005255"));
+    myCart.push(GroceryItem("eggs", "any", "00688267039317"));
   /////////////////////// END-TO-DO (4) ////////////////////////////
 
 
