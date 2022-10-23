@@ -114,13 +114,13 @@ namespace
     ///////////////////////// TO-DO (1) //////////////////////////////
       /// Implement the algorithm above.
     if (quantity == 1){
-      working_cart.push(broken_cart.top());
+      working_cart.push(std::move(broken_cart.top()));      
       broken_cart.pop();
       trace(broken_cart, working_cart, spare_cart);
     }
     else {
       carefully_move_grocery_items(quantity-1, broken_cart, spare_cart, working_cart);
-      working_cart.push(broken_cart.top());
+      working_cart.push(std::move(broken_cart.top()));      
       broken_cart.pop();
       trace(broken_cart, working_cart, spare_cart);
       carefully_move_grocery_items(quantity-1, spare_cart, working_cart, broken_cart);
@@ -175,12 +175,12 @@ int main( int argc, char * argv[] )
     ///      00038000291210   rice krispies    Kellogg's
     ///      00075457129000   milk             any                     <===  heaviest item, put this on the bottom
   
-    myCart.push(GroceryItem("milk", "any", "00075457129000"));
-    myCart.push(GroceryItem("rice krispies", "Kellogg's", "00038000291210"));
-    myCart.push(GroceryItem("hotdogs", "Applegate Farms", "00025317533003"));
-    myCart.push(GroceryItem("apple pie", "any", "09073649000493"));
-    myCart.push(GroceryItem("bread", "any", "00835841005255"));
-    myCart.push(GroceryItem("eggs", "any", "00688267039317"));
+    myCart.push(std::move(GroceryItem("milk", "any", "00075457129000")));
+    myCart.push(std::move(GroceryItem("rice krispies", "Kellogg's", "00038000291210")));
+    myCart.push(std::move(GroceryItem("hotdogs", "Applegate Farms", "00025317533003")));
+    myCart.push(std::move(GroceryItem("apple pie", "any", "09073649000493")));
+    myCart.push(std::move(GroceryItem("bread", "any", "00835841005255")));
+    myCart.push(std::move(GroceryItem("eggs", "any", "00688267039317")));
   /////////////////////// END-TO-DO (4) ////////////////////////////
 
 
@@ -204,7 +204,7 @@ int main( int argc, char * argv[] )
     /// from your working cart and place them on the checkout counter, i.e., put them in this checkoutCounter queue.
   std::queue<GroceryItem> checkoutCounter;
   while (workingCart.size() != 0){
-    checkoutCounter.push(workingCart.top());
+    checkoutCounter.push(std::move(workingCart.top()));
     workingCart.pop();
   }
   /////////////////////// END-TO-DO (6) ////////////////////////////
