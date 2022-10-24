@@ -59,8 +59,7 @@ GroceryItemDatabase::GroceryItemDatabase( const std::string & filename )
 
   ///////////////////////// TO-DO (2) //////////////////////////////
     /// Hint:  Use your GroceryItem's extraction operator to read GroceryItems, don't reinvent that here.
-    ///        Read grocery items until end of file pushing each grocery item into the data store as they're read.
-  // for(GroceryItem groceryItem; fin >> groceryItem; _collection.insert_after(_collection.before_begin(), &groceryItem)){++_size;};
+    ///        Read grocery items until end of file pushing each grocery item into the data store as they're read.  
   for (GroceryItem groceryItem; fin >> groceryItem; _collection.push_back(std::move(groceryItem)));
   /////////////////////// END-TO-DO (2) ////////////////////////////
 
@@ -88,8 +87,8 @@ GroceryItemDatabase::GroceryItemDatabase( const std::string & filename )
   ///                    depth of recursion may be greater than the program's function call stack size.  But for this programming
   ///                    exercise, getting familiar with recursion is a goal.
 
-GroceryItem * GroceryItemDatabase::find(const std::string & isbn){   
-  return GroceryItemDatabase::find(isbn, _collection.begin());
+GroceryItem * GroceryItemDatabase::find(const std::string & isbn){     
+  return find(isbn, _collection.begin());
 }
 
 GroceryItem * GroceryItemDatabase::find(const std::string & isbn, auto current){
@@ -99,15 +98,11 @@ GroceryItem * GroceryItemDatabase::find(const std::string & isbn, auto current){
   // visit  
   if (current->upcCode() == isbn) return &*current;
 
-  // recurse
-  return GroceryItemDatabase::find(isbn, ++current);
+  // recurse  
+  return find(isbn, ++current);
 }
 
 std::size_t GroceryItemDatabase::size() const {
   return _collection.size();
 }
-
-// bool GroceryItemDatabase::isEmpty() const noexcept {
-//   return size() == 0;  
-// }
 /////////////////////// END-TO-DO (3) ////////////////////////////

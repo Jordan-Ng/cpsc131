@@ -174,7 +174,6 @@ int main( int argc, char * argv[] )
     ///      00025317533003   hotdogs          Applegate Farms
     ///      00038000291210   rice krispies    Kellogg's
     ///      00075457129000   milk             any                     <===  heaviest item, put this on the bottom
-  
     myCart.push(GroceryItem("milk", "any", "00075457129000"));
     myCart.push(GroceryItem("rice krispies", "Kellogg's", "00038000291210"));
     myCart.push(GroceryItem("hotdogs", "Applegate Farms", "00025317533003"));
@@ -203,7 +202,7 @@ int main( int argc, char * argv[] )
     /// Create an empty checkout counter as a queue of grocery items and call it checkoutCounter.  Then remove the grocery items
     /// from your working cart and place them on the checkout counter, i.e., put them in this checkoutCounter queue.
   std::queue<GroceryItem> checkoutCounter;
-  while (workingCart.size() != 0){
+  while (!workingCart.empty()){
     checkoutCounter.push(std::move(workingCart.top()));
     workingCart.pop();
   }
@@ -224,7 +223,7 @@ int main( int argc, char * argv[] )
     /// Otherwise, print a message on the receipt that a description and price for the grocery item wasn't found and there will be
     /// no charge.
   std::cout << "-- Start of Receipt -- \n\n";
-  while (checkoutCounter.size() != 0){
+  while (!checkoutCounter.empty()){
     auto result = worldWideDatabase.find(checkoutCounter.front().upcCode());    
     if ( result != nullptr){
       amountDue += result->price();

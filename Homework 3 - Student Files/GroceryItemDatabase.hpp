@@ -35,11 +35,8 @@ class GroceryItemDatabase
     ///////////////////////// TO-DO (2) //////////////////////////////
       /// Private implementation details
       /// Add any necessary private helper functions, member attributes, etc.
-
-    // private helper function for recursive find
     GroceryItem * find(const std::string & isbn, auto current);
-
-    // bool isEmpty() const noexcept;
+    
     std::vector<GroceryItem> _collection;
     /////////////////////// END-TO-DO (2) ////////////////////////////
 };
