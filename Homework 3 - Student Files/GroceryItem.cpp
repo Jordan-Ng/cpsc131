@@ -237,13 +237,33 @@ std::weak_ordering GroceryItem::operator<=>(const GroceryItem &rhs) const noexce
   // (sorted) by UPC code, product name, brand name, then price.
 
   ///////////////////////// TO-DO (19) //////////////////////////////
-  if(auto result = _upcCode <=> rhs._upcCode; result != 0) return result;
-  if(auto result = _productName <=> rhs._productName; result != 0) return result;
-  if(auto result = _brandName <=> rhs._brandName; result != 0) return result;
+  // if(auto result = _upcCode <=> rhs._upcCode; result != 0) return result;
+  // if(auto result = _productName <=> rhs._productName; result != 0) return result;
+  // if(auto result = _brandName <=> rhs._brandName; result != 0) return result;
 
-  if (floating_point_is_equal(_price, rhs._price)) return std::weak_ordering::equivalent;
-  if (_price < rhs._price) return std::weak_ordering::less;
-  else return std::weak_ordering::greater;
+  // if (floating_point_is_equal(_price, rhs._price)) return std::weak_ordering::equivalent;
+  // if (_price < rhs._price) return std::weak_ordering::less;
+  // else return std::weak_ordering::greater;
+  int compareUpcCode = _upcCode.compare(rhs._upcCode);
+  int compareProductName = _productName.compare(rhs._productName);
+  int compareBrandName = _brandName.compare(rhs._brandName);
+  bool isSamePrice = floating_point_is_equal(_price, rhs._price);
+
+  if (compareUpcCode != 0 || compareProductName != 0 || compareBrandName != 0 || !isSamePrice ){
+    if (compareUpcCode > 0)return std::weak_ordering::greater;
+    else if (compareUpcCode < 0)return std::weak_ordering::less;
+
+    if (compareProductName > 0)return std::weak_ordering::greater;
+    else if (compareProductName < 0)return std::weak_ordering::less;
+
+    if (compareBrandName > 0)return std::weak_ordering::greater;
+    else if (compareBrandName < 0)return std::weak_ordering::less;
+  
+    if (_price > rhs._price) return std::weak_ordering::greater;
+    else if (_price < rhs._price) return std::weak_ordering::less;
+  }
+
+  return std::weak_ordering::equivalent;
   /////////////////////// END-TO-DO (19) ////////////////////////////
 }
 

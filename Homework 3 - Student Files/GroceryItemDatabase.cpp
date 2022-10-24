@@ -4,7 +4,6 @@
   ///
   /// Do not put anything else in this section, i.e. comments, classes, functions, etc.  Only #include directives
 #include <string>
-#include <vector>
 #include <filesystem>
 #include <fstream>
 #include <cstddef>

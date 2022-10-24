@@ -6,8 +6,6 @@
   ///
   /// Do not put anything else in this section, i.e. comments, classes, functions, etc.  Only #include directives
 #include <vector>
-#include <iterator>
-#include <iomanip>
 #include <cstddef>
 #include "GroceryItem.hpp"
 /////////////////////// END-TO-DO (1) ////////////////////////////
