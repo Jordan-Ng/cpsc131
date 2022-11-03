@@ -38,6 +38,7 @@ GroceryStore::GroceryStore( const std::string & persistentInventoryDB )
     ///       See
     ///        1) https://en.cppreference.com/w/cpp/io/manip/quoted
     ///        2) https://www.youtube.com/watch?v=Mu-GUZuU31A
+  // 
   std::string upcCode;
   unsigned int quantity;
   while (fin >> std::quoted(upcCode) >> quantity) _inventoryDB.insert(std::make_pair(upcCode, quantity));
