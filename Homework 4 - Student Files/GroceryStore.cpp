@@ -107,7 +107,7 @@ GroceryStore::GroceryItemsSold GroceryStore::ringUpCustomer( const ShoppingCart 
     ///       2.2.3.1              Decrease the number of items on hand for the item sold
     ///       2.2.3.2              Add the items's UPC to the list of groceries purchased
     ///       3         Print the total amount due on the receipt
-  double amount;
+  double amount = 0.0;
 
   receipt << "\n---- Start of Receipt ---- \n";
   for (auto && groceryItemPair : shoppingCart){
@@ -125,7 +125,7 @@ GroceryStore::GroceryItemsSold GroceryStore::ringUpCustomer( const ShoppingCart 
       if (inventory != _inventoryDB.end()) {
         --inventory->second;
         purchasedGroceries.insert(result->upcCode());
-      };
+      }
     }
   }
   receipt << "Total: " << amount << "\n" 
@@ -174,13 +174,13 @@ void GroceryStore::reorderItems( GroceryItemsSold & todaysSales, std::ostream & 
       auto result = worldWideGroceryDatabase.find(item);
 
       if (result == nullptr) std::cout << item << "\n";
-      else std::cout << *result;
+      else reorderReport << *result;
 
       if (stock == _inventoryDB.end()) std::cout << "item is no longer sold in this store and will not be re-ordered\n";
       else{
-          std::cout << "Current Quantity: " << stock->second << ", Received: " << LOT_COUNT << "\n";
+          reorderReport << "Current Quantity: " << stock->second << ", Received: " << LOT_COUNT << "\n";
           stock->second += LOT_COUNT;
-          std::cout << "New Item Quantity: " << stock->second << "\n\n";
+          reorderReport << "New Item Quantity: " << stock->second << "\n\n";
       }
     }
 

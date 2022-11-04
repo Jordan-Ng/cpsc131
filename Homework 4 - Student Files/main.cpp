@@ -49,6 +49,7 @@ int main()
       /// store's inventory.
       ///
     GroceryStore::Inventory_DB & storeInventory = groceryStore.inventory();
+    storeInventory.erase("00041331092609");
     /////////////////////// END-TO-DO (4) ////////////////////////////
 
 
