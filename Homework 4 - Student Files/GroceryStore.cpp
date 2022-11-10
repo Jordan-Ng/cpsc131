@@ -40,8 +40,8 @@ GroceryStore::GroceryStore( const std::string & persistentInventoryDB )
     ///        2) https://www.youtube.com/watch?v=Mu-GUZuU31A
   // 
   std::string upcCode;
-  unsigned int quantity;
-  while (fin >> std::quoted(upcCode) >> quantity) _inventoryDB.insert(std::make_pair(upcCode, quantity));
+  unsigned quantity;
+  while (fin >> std::quoted(upcCode) >> quantity) _inventoryDB.insert({std::move(upcCode), quantity});
   /////////////////////// END-TO-DO (2) ////////////////////////////
 }                                                                 // File is closed as fin goes out of scope
 
@@ -68,6 +68,7 @@ GroceryStore::GroceryItemsSold GroceryStore::ringUpCustomers( const ShoppingCart
     ///  Ring up each customer accumulating the groceries purchased
     ///  Hint:  merge each customer's purchased groceries into today's sales.  (https://en.cppreference.com/w/cpp/container/set/merge)
   for (auto && shoppingCart: shoppingCarts ){
+    receipt << shoppingCart.first << "'s shopping cart contains:";
     todaysSales.merge(ringUpCustomer(shoppingCart.second , receipt));
   }
   /////////////////////// END-TO-DO (3) ////////////////////////////
@@ -109,27 +110,27 @@ GroceryStore::GroceryItemsSold GroceryStore::ringUpCustomer( const ShoppingCart 
     ///       3         Print the total amount due on the receipt
   double amount = 0.0;
 
-  receipt << "\n---- Start of Receipt ---- \n";
+  receipt << "\n-------------------------Start of Receipt ------------------------- \n\n";
   for (auto && groceryItemPair : shoppingCart){
     auto result = worldWideGroceryDatabase.find(groceryItemPair.first);
     // GroceryItem & groceryItem = groceryItemPair.second;
 
-    if (!result) std::cout << "( " << groceryItemPair.first << ") " << groceryItemPair.second.productName() << " not found in database. Enjoy!\n";
+    if (!result) receipt << "    (" << std::quoted(groceryItemPair.first) << ") " << groceryItemPair.second.productName() << " not found, your grocery item is free! Bon apetit!\n";
     
     else {
-      // can just std::cout << groceryItem here
-      receipt << result->upcCode() << ", " << result->brandName() << ", " << result->productName() << ", " << result->price() << "\n";
+      receipt << "    " << *result << "\n";
       amount += result->price();
 
       auto inventory = _inventoryDB.find(result->upcCode());
+
       if (inventory != _inventoryDB.end()) {
         --inventory->second;
         purchasedGroceries.insert(result->upcCode());
       }
     }
   }
-  receipt << "Total: " << amount << "\n" 
-  << "---- End of Receipt ----\n\n";
+  receipt << "    -------------------------\n" << "    Total:  $" << amount << "\n\n" 
+  << "------------------------- End of Receipt -------------------------\n\n\n";
   /////////////////////// END-TO-DO (4) ////////////////////////////
 
   return purchasedGroceries;
@@ -166,22 +167,32 @@ void GroceryStore::reorderItems( GroceryItemsSold & todaysSales, std::ostream & 
     ///        2       Reset the list of grocery item sold today so the list can be reused again later
     ///
     /// Take special care to avoid excessive searches in your solution
+  unsigned count = 1;
+  reorderReport << "\n\n\nRe-ordering grocery items the store is running low on.\n\n";
   for (auto && item : todaysSales){
     auto stock = _inventoryDB.find(item);
 
     // if (stock != _inventoryDB.end() || stock->second < REORDER_THRESHOLD){
     if (stock == _inventoryDB.end() || stock->second < REORDER_THRESHOLD){
+      
       auto result = worldWideGroceryDatabase.find(item);
+      
+      reorderReport << " " << count << ":  ";
 
-      if (result == nullptr) std::cout << item << "\n";
+      if (result == nullptr) reorderReport << item << "\n";
       else reorderReport << *result;
 
-      if (stock == _inventoryDB.end()) std::cout << "item is no longer sold in this store and will not be re-ordered\n";
+      if (stock == _inventoryDB.end()) reorderReport << "      *** item is no longer sold in this store and will not be re-ordered\n\n";
       else{
-          reorderReport << "Current Quantity: " << stock->second << ", Received: " << LOT_COUNT << "\n";
-          stock->second += LOT_COUNT;
-          reorderReport << "New Item Quantity: " << stock->second << "\n\n";
+        reorderReport << "      only " << stock->second 
+                      << " remain in stock which is " << REORDER_THRESHOLD - stock->second << " unit(s) below reorder threshold (" << REORDER_THRESHOLD << "),"
+                      << " re-ordering " << LOT_COUNT << " more\n\n";
+        stock->second += LOT_COUNT;
+          // reorderReport << "Current Quantity: " << stock->second << ", Received: " << LOT_COUNT << "\n";
+          // stock->second += LOT_COUNT;
+          // reorderReport << "New Item Quantity: " << stock->second << "\n\n";
       }
+      ++count;
     }
 
     // auto result = worldWideGroceryDatabase.find(item);

@@ -69,7 +69,8 @@ GroceryItemDatabase::GroceryItemDatabase( const std::string & filename )
     /// Hint:  Use your GroceryItem's extraction operator to read GroceryItems, don't reinvent that here.
     ///        Read grocery items until end of file pushing each grocery item into the data store as they're read.
   GroceryItem groceryItem;
-  while (fin >> groceryItem) _data.insert(std::make_pair(groceryItem.upcCode(), groceryItem));
+  // while (fin >> groceryItem) _data.insert(std::make_pair(groceryItem.upcCode(), groceryItem));
+  while (fin >> groceryItem) _data.insert({groceryItem.upcCode(), std::move(groceryItem)});
   /////////////////////// END-TO-DO (2) ////////////////////////////
 
   // Note:  The file is intentionally not explicitly closed.  The file is closed when fin goes out of scope - for whatever
