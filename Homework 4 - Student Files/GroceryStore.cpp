@@ -183,8 +183,8 @@ void GroceryStore::reorderItems( GroceryItemsSold & todaysSales, std::ostream & 
                     << ((stock == _inventoryDB.end()) ?
                        "      *** item is no longer sold in this store and will not be re-ordered\n\n" :
 
-                       ("      only " + std::to_string(stock->second) + " remain in stock which is " + std::to_string(REORDER_THRESHOLD - stock->second) 
-                       + " unit(s) below reorder threshold (" + std::to_string(REORDER_THRESHOLD) + "), re-ordering " + std::to_string(LOT_COUNT) + " more\n\n"));
+                       "      only " + std::to_string(stock->second) + " remain in stock which is " + std::to_string(REORDER_THRESHOLD - stock->second) 
+                       + " unit(s) below reorder threshold (" + std::to_string(REORDER_THRESHOLD) + "), re-ordering " + std::to_string(LOT_COUNT) + " more\n\n");
 
       stock->second += LOT_COUNT;
 
