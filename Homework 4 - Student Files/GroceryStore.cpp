@@ -188,10 +188,10 @@ void GroceryStore::reorderItems( GroceryItemsSold & todaysSales, std::ostream & 
 
       // stock->second += LOT_COUNT;
 
-      // reorderReport << " " << count << ":  ";
+      reorderReport << " " << count << ":  ";
 
-      // if (result == nullptr) reorderReport << item << "\n";
-      // else reorderReport << *result;
+      if (result == nullptr) reorderReport << item << "\n";
+      else reorderReport << *result;
 
       if (stock == _inventoryDB.end()) reorderReport << "      *** item is no longer sold in this store and will not be re-ordered\n\n";
       else{
