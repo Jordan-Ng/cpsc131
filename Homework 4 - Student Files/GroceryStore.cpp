@@ -187,7 +187,8 @@ void GroceryStore::reorderItems( GroceryItemsSold & todaysSales, std::ostream & 
                        + " unit(s) below reorder threshold (" + std::to_string(REORDER_THRESHOLD) + "), re-ordering " + std::to_string(LOT_COUNT) + " more\n\n"));
 
       stock->second += LOT_COUNT;
-      reorderReport << " " << count << ":  ";
+
+      // reorderReport << " " << count << ":  ";
 
       // if (result == nullptr) reorderReport << item << "\n";
       // else reorderReport << *result;
