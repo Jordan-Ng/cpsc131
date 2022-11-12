@@ -178,29 +178,29 @@ void GroceryStore::reorderItems( GroceryItemsSold & todaysSales, std::ostream & 
       
       auto result = worldWideGroceryDatabase.find(item);
       
-      reorderReport << " " << count << ": " 
-                    << ((result == nullptr) ? item + "\n" : *result)
-                    << ((stock == _inventoryDB.end()) ?
-                       "      *** item is no longer sold in this store and will not be re-ordered\n\n" :
+      // reorderReport << " " << count << ": " 
+      //               << ((result == nullptr) ? item + "\n" : *result)
+      //               << ((stock == _inventoryDB.end()) ?
+      //                  "      *** item is no longer sold in this store and will not be re-ordered\n\n" :
 
-                       "      only " + std::to_string(stock->second) + " remain in stock which is " + std::to_string(REORDER_THRESHOLD - stock->second) 
-                       + " unit(s) below reorder threshold (" + std::to_string(REORDER_THRESHOLD) + "), re-ordering " + std::to_string(LOT_COUNT) + " more\n\n");
+      //                  "      only " + std::to_string(stock->second) + " remain in stock which is " + std::to_string(REORDER_THRESHOLD - stock->second) 
+      //                  + " unit(s) below reorder threshold (" + std::to_string(REORDER_THRESHOLD) + "), re-ordering " + std::to_string(LOT_COUNT) + " more\n\n");
 
-      stock->second += LOT_COUNT;
+      // stock->second += LOT_COUNT;
 
       // ------
-      // reorderReport << " " << count << ":  ";
+      reorderReport << " " << count << ":  ";
 
-      // if (result == nullptr) reorderReport << item << "\n";
-      // else reorderReport << *result;
+      if (result == nullptr) reorderReport << item << "\n";
+      else reorderReport << *result;
 
-      // if (stock == _inventoryDB.end()) reorderReport << "      *** item is no longer sold in this store and will not be re-ordered\n\n";
-      // else{
-      //   reorderReport << "      only " << stock->second 
-      //                 << " remain in stock which is " << REORDER_THRESHOLD - stock->second << " unit(s) below reorder threshold (" << REORDER_THRESHOLD << "),"
-      //                 << " re-ordering " << LOT_COUNT << " more\n\n";
-      //   stock->second += LOT_COUNT;
-      // }
+      if (stock == _inventoryDB.end()) reorderReport << "      *** item is no longer sold in this store and will not be re-ordered\n\n";
+      else{
+        reorderReport << "      only " << stock->second 
+                      << " remain in stock which is " << REORDER_THRESHOLD - stock->second << " unit(s) below reorder threshold (" << REORDER_THRESHOLD << "),"
+                      << " re-ordering " << LOT_COUNT << " more\n\n";
+        stock->second += LOT_COUNT;
+      }
       ++count;
     }
   }
