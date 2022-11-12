@@ -179,7 +179,7 @@ void GroceryStore::reorderItems( GroceryItemsSold & todaysSales, std::ostream & 
       auto result = worldWideGroceryDatabase.find(item);
       
       reorderReport << " " << count << ": " 
-                    << (result == nullptr ? item + "\n" : *result)
+                    << ((result == nullptr) ? item + "\n" : *result)
                     << ((stock == _inventoryDB.end()) ?
                        "      *** item is no longer sold in this store and will not be re-ordered\n\n" :
 
