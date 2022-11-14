@@ -48,8 +48,6 @@ int main()
       /// The store's managers have decided to stop selling Frozen Spanish Omelets (UPC = 00041331092609), so remove this from the
       /// store's inventory.
       ///
-    // GroceryStore::Inventory_DB & storeInventory = groceryStore.inventory();
-    // storeInventory.erase("00041331092609");
     groceryStore.inventory().erase("00041331092609");
     /////////////////////// END-TO-DO (4) ////////////////////////////
 
