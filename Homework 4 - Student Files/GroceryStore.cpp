@@ -111,7 +111,7 @@ GroceryStore::GroceryItemsSold GroceryStore::ringUpCustomer( const ShoppingCart 
   double amount = 0.0;
 
   receipt << "\n-------------------------Start of Receipt ------------------------- \n\n";
-  for (std::pair<std::string, GroceryItem> && groceryItemPair : shoppingCart){
+  for (auto && groceryItemPair : shoppingCart){
     auto result = worldWideGroceryDatabase.find(groceryItemPair.first);
 
     if (!result) receipt << "    (" << std::quoted(groceryItemPair.first) << ") " << groceryItemPair.second.productName() << " not found, your grocery item is free! Bon apetit!\n";
