@@ -111,9 +111,8 @@ GroceryStore::GroceryItemsSold GroceryStore::ringUpCustomer( const ShoppingCart 
   double amount = 0.0;
 
   receipt << "\n-------------------------Start of Receipt ------------------------- \n\n";
-  for (auto && groceryItemPair : shoppingCart){
+  for (std::pair<std::string, GroceryItem> && groceryItemPair : shoppingCart){
     auto result = worldWideGroceryDatabase.find(groceryItemPair.first);
-    // GroceryItem & groceryItem = groceryItemPair.second;
 
     if (!result) receipt << "    (" << std::quoted(groceryItemPair.first) << ") " << groceryItemPair.second.productName() << " not found, your grocery item is free! Bon apetit!\n";
     
@@ -189,10 +188,12 @@ void GroceryStore::reorderItems( GroceryItemsSold & todaysSales, std::ostream & 
       // stock->second += LOT_COUNT;
 
       // ------
-      reorderReport << " " << count << ":  ";
+      // reorderReport << " " << count << ":  ";
 
-      if (result == nullptr) reorderReport << item << "\n";
-      else reorderReport << *result;
+      !result ? reorderReport << " " << count << ":  " << item << "\n" 
+              : reorderReport << " " << count << ":  " << *result;
+      // if (result == nullptr) reorderReport << item << "\n";
+      // else reorderReport << *result;
 
       if (stock == _inventoryDB.end()) reorderReport << "      *** item is no longer sold in this store and will not be re-ordered\n\n";
       else{
