@@ -67,7 +67,7 @@ GroceryStore::GroceryItemsSold GroceryStore::ringUpCustomers( const ShoppingCart
   ///////////////////////// TO-DO (3) //////////////////////////////
     ///  Ring up each customer accumulating the groceries purchased
     ///  Hint:  merge each customer's purchased groceries into today's sales.  (https://en.cppreference.com/w/cpp/container/set/merge)
-  for (auto && shoppingCart: shoppingCarts ){
+  for (auto & shoppingCart: shoppingCarts ){
     receipt << shoppingCart.first << "'s shopping cart contains:";
     todaysSales.merge(ringUpCustomer(shoppingCart.second , receipt));
   }
@@ -111,7 +111,7 @@ GroceryStore::GroceryItemsSold GroceryStore::ringUpCustomer( const ShoppingCart 
   double amount = 0.0;
 
   receipt << "\n-------------------------Start of Receipt ------------------------- \n\n";
-  for (auto && groceryItemPair : shoppingCart){
+  for (auto & groceryItemPair : shoppingCart){
     auto result = worldWideGroceryDatabase.find(groceryItemPair.first);
 
     if (!result) receipt << "    (" << std::quoted(groceryItemPair.first) << ") " << groceryItemPair.second.productName() << " not found, your grocery item is free! Bon apetit!\n";
@@ -170,28 +170,16 @@ void GroceryStore::reorderItems( GroceryItemsSold & todaysSales, std::ostream & 
 
   reorderReport << "\n\n\nRe-ordering grocery items the store is running low on.\n\n";
 
-  for (auto && item : todaysSales){
+  for (auto & item : todaysSales){
     auto stock = _inventoryDB.find(item);
 
     if (stock == _inventoryDB.end() || stock->second < REORDER_THRESHOLD){
       
       auto result = worldWideGroceryDatabase.find(item);
-      
-      // reorderReport << " " << count << ": " 
-      //               << ((result == nullptr) ? item + "\n" : *result)
-      //               << ((stock == _inventoryDB.end()) ?
-      //                  "      *** item is no longer sold in this store and will not be re-ordered\n\n" :
-
-      //                  "      only " + std::to_string(stock->second) + " remain in stock which is " + std::to_string(REORDER_THRESHOLD - stock->second) 
-      //                  + " unit(s) below reorder threshold (" + std::to_string(REORDER_THRESHOLD) + "), re-ordering " + std::to_string(LOT_COUNT) + " more\n\n");
-
-      // stock->second += LOT_COUNT;
-
-      // ------
-      // reorderReport << " " << count << ":  ";
 
       !result ? reorderReport << " " << count << ":  " << item << "\n" 
               : reorderReport << " " << count << ":  " << *result;
+      // reorderReport << " " << count << ":  ";
       // if (result == nullptr) reorderReport << item << "\n";
       // else reorderReport << *result;
 
