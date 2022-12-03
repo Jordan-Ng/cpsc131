@@ -123,7 +123,7 @@ std::string WordFrequency::mostFrequentWord() const {
 std::size_t WordFrequency::maxBucketSize () const {
   unsigned long maxBucketSize = 0;
 
-  for (auto i=0; i < _repository.bucket_count(); ++i){
+  for (unsigned long i=0; i < _repository.bucket_count(); ++i){
     maxBucketSize = (maxBucketSize > _repository.bucket_size(i) ? maxBucketSize : _repository.bucket_size(i));
   }
 
