@@ -26,6 +26,6 @@ class WordFrequency
     ///////////////////////// TO-DO (2) //////////////////////////////
       /// The class should have a single member variable, of class std::unordered_map which is the C++ Standard Library�s
       /// implementation of a hash table, to store the association of words (key) to the number of times a word occurs (value).
-    std::unordered_map<std::string, unsigned> _repository;
+    std::unordered_map<std::string, unsigned long> _repository;
     /////////////////////// END-TO-DO (2) ////////////////////////////
 };

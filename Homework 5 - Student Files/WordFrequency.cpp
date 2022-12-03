@@ -8,6 +8,7 @@
 #include <iostream>
 #include <cstddef>
 #include <algorithm>
+#include <utility>
 #include "WordFrequency.hpp"
 /////////////////////// END-TO-DO (1) ////////////////////////////
 
@@ -54,12 +55,8 @@ WordFrequency::WordFrequency(std::istream & iStream){
     word = sanitize(word);
     auto result = _repository.find(word);
   
-    if (result == _repository.end()){
-      _repository.insert({word, 1});
-    }
-    else {
-      ++result->second;
-    }
+    if (result == _repository.end()) _repository.insert({word, 1});
+    else ++result->second;
   }
 }
 /////////////////////// END-TO-DO (2) ////////////////////////////
@@ -104,8 +101,8 @@ std::string WordFrequency::mostFrequentWord() const {
 
   auto mostFrequentWord = _repository.begin();
 
-  for (auto i= _repository.begin(); i!= _repository.end(); ++i){
-    mostFrequentWord = (mostFrequentWord->second > i->second ? mostFrequentWord : i);
+  for (auto i= _repository.begin(); i!= _repository.end(); ++i){    
+    if (mostFrequentWord->second < i->second) mostFrequentWord = i;
   }
   return mostFrequentWord->first;
 }
@@ -124,7 +121,8 @@ std::size_t WordFrequency::maxBucketSize () const {
   unsigned long maxBucketSize = 0;
 
   for (unsigned long i=0; i < _repository.bucket_count(); ++i){
-    maxBucketSize = (maxBucketSize > _repository.bucket_size(i) ? maxBucketSize : _repository.bucket_size(i));
+    // maxBucketSize = (maxBucketSize > _repository.bucket_size(i) ? maxBucketSize : _repository.bucket_size(i));
+    maxBucketSize = std::max(maxBucketSize, _repository.bucket_size(i));
   }
 
   return maxBucketSize;
