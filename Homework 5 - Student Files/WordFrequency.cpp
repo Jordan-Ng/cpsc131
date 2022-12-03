@@ -121,9 +121,9 @@ std::string WordFrequency::mostFrequentWord() const {
 ///////////////////////// TO-DO (6) //////////////////////////////
   /// Hint: see the unordered_map's bucket interface at https://en.cppreference.com/w/cpp/container/unordered_map
 std::size_t WordFrequency::maxBucketSize () const {
-  unsigned maxBucketSize;
+  unsigned long maxBucketSize = 0;
 
-  for (auto i=0; i<_repository.bucket_count(); ++i){
+  for (auto i=0; i < _repository.bucket_count(); ++i){
     maxBucketSize = (maxBucketSize > _repository.bucket_size(i) ? maxBucketSize : _repository.bucket_size(i));
   }
 
