@@ -271,7 +271,7 @@ struct remove_from_back_of_sll
       /// Write the lines of code to remove the object at the back of "my_sll". Remember, attempting to remove an object from an empty data
       /// structure is a logic error.  Include code to avoid that.
     if (!my_sll.empty()) {
-      my_sll.erase_after(std::next(my_sll.before_begin(), std::distance(my_sll.begin(), my_sll.end())));
+      my_sll.erase_after(std::next(my_sll.before_begin(), std::distance(my_sll.begin(), my_sll.end()) - 1));
     }
     /////////////////////// END-TO-DO (11) ////////////////////////////
   }
