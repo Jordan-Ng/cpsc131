@@ -429,7 +429,7 @@ struct search_within_vector
       /// Write the lines of code to search for the object within "my_vector" with a key matching "target_key".  Return a pointer to that
       /// object immediately upon finding it, or a null pointer when you know the object is not in the container.
     for (auto i = my_vector.begin(); i != my_vector.end(); ++i){
-      if (i->key() == target_key) return i;
+      if (i->key() == target_key) return &*i;
     }
 
     return nullptr;
@@ -458,7 +458,7 @@ struct search_within_dll
       /// Write the lines of code to search for the object within "my_dll" with a key matching "target_key".  Return a pointer to that
       /// object immediately upon finding it, or a null pointer when you know the object is not in the container.
     for (auto i = my_dll.begin(); i != my_dll.end(); ++i){
-      if (i->key() == target_key) return i;
+      if (i->key() == target_key) return &*i;
     }
     return nullptr;
     /////////////////////// END-TO-DO (18) ////////////////////////////
@@ -514,7 +514,7 @@ struct search_within_bst
       /// Write the lines of code to search for the object within "my_bst" with a key matching "target_key".  Return a pointer to that
       /// object immediately upon finding it, or a null pointer when you know the object is not in the container.
     auto result = my_bst.find(target_key);
-    return result == my_bst.end() ? nullptr : result;
+    return result == my_bst.end() ? nullptr : &*result;
     /////////////////////// END-TO-DO (20) ////////////////////////////
   }
 
@@ -540,7 +540,7 @@ struct search_within_hash_table
       /// Write the lines of code to search for the object within "my_hash_table" with a key matching "target_key".  Return a pointer to
       /// that object immediately upon finding it, or a null pointer when you know the object is not in the container.
     auto result = my_hash_table.find(target_key);
-    return result == my_hash_table.end() ? nullptr : result;
+    return result == my_hash_table.end() ? nullptr : &*result;
     /////////////////////// END-TO-DO (21) ////////////////////////////
   }
 
