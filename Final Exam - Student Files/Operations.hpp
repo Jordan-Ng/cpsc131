@@ -514,7 +514,7 @@ struct search_within_bst
       /// Write the lines of code to search for the object within "my_bst" with a key matching "target_key".  Return a pointer to that
       /// object immediately upon finding it, or a null pointer when you know the object is not in the container.
     auto result = my_bst.find(target_key);
-    return result == my_bst.end() ? nullptr : &result;
+    return result == my_bst.end() ? nullptr : &result->second;
     /////////////////////// END-TO-DO (20) ////////////////////////////
   }
 
@@ -540,7 +540,7 @@ struct search_within_hash_table
       /// Write the lines of code to search for the object within "my_hash_table" with a key matching "target_key".  Return a pointer to
       /// that object immediately upon finding it, or a null pointer when you know the object is not in the container.
     auto result = my_hash_table.find(target_key);
-    return result == my_hash_table.end() ? nullptr : &result;
+    return result == my_hash_table.end() ? nullptr : &result->second;
     /////////////////////// END-TO-DO (21) ////////////////////////////
   }
 
