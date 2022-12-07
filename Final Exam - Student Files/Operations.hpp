@@ -73,7 +73,7 @@ struct insert_at_back_of_sll
     ///////////////////////// TO-DO (3) //////////////////////////////
       /// Write the lines of code to insert "object" at the back of "my_sll". Since the SLL has no size() function and no tail pointer, you
       /// must walk the list looking for the last node. Hint:  Do not attempt to insert after "my_sll.end()"
-    for (auto i = my_sll.begin(); i != my_sll.end(); ++i){
+    for (auto i = my_sll.before_begin(); i != my_sll.end(); ++i){
       if(std::next(i) == my_sll.end()){
         my_sll.insert_after(i, std::move(object));
       }
