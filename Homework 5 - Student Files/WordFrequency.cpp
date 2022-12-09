@@ -121,7 +121,6 @@ std::size_t WordFrequency::maxBucketSize () const {
   unsigned long maxBucketSize = 0;
 
   for (unsigned long i=0; i < _repository.bucket_count(); ++i){
-    // maxBucketSize = (maxBucketSize > _repository.bucket_size(i) ? maxBucketSize : _repository.bucket_size(i));
     maxBucketSize = std::max(maxBucketSize, _repository.bucket_size(i));
   }
 
